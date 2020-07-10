@@ -24,7 +24,8 @@
             <!--/*@thymesVar id="product" type="Homework2.model.Product"*/-->
             <form th:action="@{/products/add}" method="POST">
                 <input type="text" name="title" placeholder="Введите название товара"/>
-                <input type="text" name="cost" placeholder="Введите цену товара"/>
+                <input type="text" name="description" placeholder="Введите описание товара"/>
+                <input type="text" name="price" placeholder="Введите цену товара"/>
                 <input type="submit"/>
             </form>
         </div>
@@ -32,9 +33,6 @@
 </div>
 
 <hr>
-<footer class="footer">
-    <p>Maxim Fomin &copy; Все права защищены</p>
-</footer>
-
+<div th:replace="~{footer}"></div>
 </body>
 </html>

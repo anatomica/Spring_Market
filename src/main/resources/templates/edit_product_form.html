@@ -28,7 +28,7 @@
                 Название: <input th:field="*{title}"/>
                 <br>
                 <br>
-                Цена: <input th:field="*{cost}"/>
+                Цена: <input th:field="*{price}"/>
                 <br>
                 <br>
                 <input type="submit" value="Submit" />
@@ -38,9 +38,6 @@
 </div>
 
 <hr>
-<footer class="footer">
-    <p>Maxim Fomin &copy; Все права защищены</p>
-</footer>
-
+<div th:replace="~{footer}"></div>
 </body>
 </html>

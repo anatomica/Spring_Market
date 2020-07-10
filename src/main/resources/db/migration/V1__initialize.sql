@@ -1,6 +1,12 @@
-drop table if exists products cascade;
-create table products (id bigserial, title varchar(255), description varchar(5000), price int, primary key(id));
-insert into products
+DROP TABLE IF EXISTS Client CASCADE;
+CREATE TABLE Client (id bigserial PRIMARY KEY, name VARCHAR(255));
+
+DROP TABLE IF EXISTS OrderClient CASCADE;
+CREATE TABLE OrderClient (id bigserial PRIMARY KEY, idClient INT, idProduct INT);
+
+drop table if exists Products cascade;
+create table Products (id bigserial, title varchar(255), description varchar(5000), price int, primary key(id));
+insert into Products
 (title, description, price) values
 ('Cheese', 'Fresh cheese', 320),
 ('Milk', 'Fresh milk', 80),

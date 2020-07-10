@@ -136,9 +136,9 @@ p.textOnView:first-letter {
     background-color: white;
 }
 
-input{
-    text-transform: capitalize;
-}
+/*input{*/
+/*    text-transform: capitalize;*/
+/*}*/
 
 .imageView {
     display: block;

@@ -32,7 +32,25 @@
             </div>
             <button type="submit" class="btn btn-primary">Применить</button>
         </form>
+        <form class="textCenter" th:action="@{'/products'}" method="GET">
+            <button type="submit" class="btn btn-primary">Сбросить</button>
         </form>
+        <br>
+
+        <h1 class="storeName">Найти товар по части названия:</h1>
+        <br>
+
+        <form class="textCenter" th:action="@{'/products'}" method="GET">
+            <div class="form-group">
+                <label>Название содержит:</label>
+                <input type="text" th:value="${param.like != null ? param.like : ''}" class="form-control" name="like">
+            </div>
+            <button type="submit" class="btn btn-primary">Применить</button>
+        </form>
+        <form class="textCenter" th:action="@{'/products'}" method="GET">
+            <button type="submit" class="btn btn-primary">Сбросить</button>
+        </form>
+        <br>
 
         <h1 class="storeName">Список товаров:</h1>
         <br>
@@ -59,7 +77,8 @@
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{'/products/?p='+ ${products.previousOrFirstPageable().getPageNumber() + 1} + ${filterDef}}">Назад</a>
+                           th:href="@{'/products/?p='+ ${products.previousOrFirstPageable().getPageNumber() + 1} + ${filterDef}}"
+                           th:if="${!products.first}">Назад</a>
                     </li>
 
                     <li class="page-item" th:classappend="${products.getNumber() + 1 == i ? 'active' : ''}"
@@ -69,7 +88,8 @@
 
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{'/products/?p='+ ${products.nextOrLastPageable().getPageNumber() + 1} + ${filterDef}}">Вперед</a>
+                           th:href="@{'/products/?p='+ ${products.nextOrLastPageable().getPageNumber() + 1} + ${filterDef}}"
+                           th:if="${!products.last}">Вперед</a>
                     </li>
                 </ul>
             </nav>

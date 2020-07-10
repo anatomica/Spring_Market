@@ -24,15 +24,10 @@
         <br>
         <a class="storeName textOnCenter" th:href="@{/products/add}">Добавить товар</a>
         <br>
-        <a class="storeName textOnCenter" th:href="@{/products/find_product}">Найти товар по цене</a>
-        <br>
     </div>
 </div>
 
 <hr>
-<footer class="footer">
-    <p>Maxim Fomin &copy; Все права защищены</p>
-</footer>
-
+<div th:replace="~{footer}"></div>
 </body>
 </html>
