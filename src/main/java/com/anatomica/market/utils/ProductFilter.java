@@ -30,12 +30,4 @@ public class ProductFilter {
             filterDefinition.append("&like=").append(like);
         }
     }
-
-    public Specification<Product> getSpec() {
-        return spec;
-    }
-
-    public Object getFilterDefinition() {
-        return filterDefinition;
-    }
 }

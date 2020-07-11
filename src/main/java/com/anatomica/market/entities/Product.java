@@ -1,11 +1,14 @@
 package com.anatomica.market.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "products")
 @Data
+@NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +20,6 @@ public class Product {
 
     @Column(name = "price")
     private int price;
-
-    public Product() {
-    }
 
     public Product(Long id, String title, int price) {
         this.id = id;
