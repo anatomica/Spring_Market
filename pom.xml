@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.2.BUILD-SNAPSHOT</version>
+		<version>2.3.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.anatomica</groupId>
@@ -13,9 +13,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Market</name>
 	<description>My Market</description>
+	<packaging>war</packaging>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>13</java.version>
 	</properties>
 
 	<dependencies>
