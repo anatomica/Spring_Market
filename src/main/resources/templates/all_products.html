@@ -49,9 +49,18 @@
         <form class="textCenter" th:action="@{'/products'}" method="GET">
             <div class="form-group">
                 <label>Название содержит:</label>
-                <input type="text" th:value="${param.category != null ? param.category : ''}" class="form-control" name="category">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Выбор</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" th:href="@{/products?category=1}">Категория 1</a>
+                            <a class="dropdown-item" th:href="@{/products?category=2}">Категория 2</a>
+                            <a class="dropdown-item" th:href="@{/products?category=3}">Категория 3</a>
+                        </div>
+                    </div>
+                    <input type="text" th:value="${param.category != null ? ('Категория ' + param.category) : ''}" class="form-control" aria-label="Text input with dropdown button">
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Применить</button>
             <a th:href="@{/products}" type="button" class="btn btn-warning">Сброс фильтра</a>
         </form>
         <br>

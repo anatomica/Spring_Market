@@ -1,6 +1,6 @@
 package com.anatomica.market.repositories.specifications;
 
-import com.anatomica.market.entities.Product;
+import com.anatomica.market.entities.*;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ProductSpecifications {
@@ -16,7 +16,11 @@ public class ProductSpecifications {
         return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("title"), "%" + like + "%");
     }
 
-    public static Specification<Product> findByCategory(String category) {
+    public static Specification<Product> findByProducts(String category) {
         return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category"), category);
     }
+
+//    public static Specification<Category> findByCategories(String category) {
+//        return (Specification<Category>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category"), category);
+//    }
 }
