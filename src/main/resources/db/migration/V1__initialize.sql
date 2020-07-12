@@ -2,12 +2,12 @@ DROP TABLE IF EXISTS Client CASCADE;
 CREATE TABLE Client (id bigserial PRIMARY KEY, name VARCHAR(255));
 
 DROP TABLE IF EXISTS OrderClient CASCADE;
-CREATE TABLE OrderClient (id bigserial PRIMARY KEY, idClient INT, idProduct INT);
+CREATE TABLE OrderClient (id bigserial PRIMARY KEY, id_Client INT, id_Product INT);
 
 drop table if exists Products cascade;
-create table Products (id bigserial, title varchar(255), description varchar(5000), price int, category int, primary key(id));
+create table Products (id bigserial, title varchar(255), description varchar(5000), price int, id_Category int, primary key(id));
 insert into Products
-(title, description, price, category) values
+(title, description, price, id_Category) values
 ('Cheese', 'Fresh cheese', 320, 1),
 ('Milk', 'Fresh milk', 80, 2),
 ('Apples', 'Fresh apples', 80, 3),

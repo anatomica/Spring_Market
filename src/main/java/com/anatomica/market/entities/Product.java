@@ -23,14 +23,14 @@ public class Product {
     @Column(name = "price")
     private int price;
 
-    @Column(name = "category")
+    @Column(name = "id_category")
     private int category;
 
     @ManyToMany
     @JoinTable(
             name = "categories",
-            joinColumns = @JoinColumn(name = "idCategory")
-            // , inverseJoinColumns = @JoinColumn(name = "idCategory")
+            joinColumns = @JoinColumn(name = "id_Category")
+            // , inverseJoinColumns = @JoinColumn(name = "id_Category")
     )
     public List<Category> categories;
 

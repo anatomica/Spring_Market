@@ -13,9 +13,10 @@ public class ProductSpecifications {
     }
 
     public static Specification<Product> titleLikeThis (String like) {
-        StringBuilder newLike = new StringBuilder(like);
-        newLike.insert(0, '%');
-        newLike.append('%');
-        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("title"), newLike.toString());
+        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("title"), "%" + like + "%");
+    }
+
+    public static Specification<Product> findByCategory(String category) {
+        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category"), category);
     }
 }

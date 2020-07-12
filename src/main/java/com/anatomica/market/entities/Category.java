@@ -17,17 +17,17 @@ public class Category {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "idCategory")
+    @Column(name = "id_Category")
     private int idCategory;
 
-    @Column(name = "nameCategory")
+    @Column(name = "name_Category")
     private String  nameCategory;
 
     @ManyToMany
     @JoinTable(
             name = "products",
-            joinColumns = @JoinColumn(name = "category")
-            // , inverseJoinColumns = @JoinColumn(name = "category")
+            joinColumns = @JoinColumn(name = "id_Category")
+            // , inverseJoinColumns = @JoinColumn(name = "id_Category")
     )
     public List<Product> products;
 

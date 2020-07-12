@@ -20,8 +20,8 @@ public class Client implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "orderClient",
-            joinColumns = @JoinColumn(name = "idClient"),
-            inverseJoinColumns = @JoinColumn(name = "idProduct")
+            joinColumns = @JoinColumn(name = "id_Client"),
+            inverseJoinColumns = @JoinColumn(name = "id_Product")
     )
 
     private List<Product> products;

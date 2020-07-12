@@ -26,9 +26,7 @@
                 <input type="number" th:value="${param.max_price != null ? param.max_price : ''}" class="form-control" name="max_price">
             </div>
             <button type="submit" class="btn btn-primary">Применить</button>
-        </form>
-        <form class="textCenter" th:action="@{'/products'}" method="GET">
-            <button type="submit" class="btn btn-primary">Сбросить</button>
+            <a th:href="@{/products}" type="button" class="btn btn-warning">Сброс фильтра</a>
         </form>
         <br>
 
@@ -41,9 +39,20 @@
                 <input type="text" th:value="${param.like != null ? param.like : ''}" class="form-control" name="like">
             </div>
             <button type="submit" class="btn btn-primary">Применить</button>
+            <a th:href="@{/products}" type="button" class="btn btn-warning">Сброс фильтра</a>
         </form>
+        <br>
+
+        <h1 class="storeName">Найти товар по категории:</h1>
+        <br>
+
         <form class="textCenter" th:action="@{'/products'}" method="GET">
-            <button type="submit" class="btn btn-primary">Сбросить</button>
+            <div class="form-group">
+                <label>Название содержит:</label>
+                <input type="text" th:value="${param.category != null ? param.category : ''}" class="form-control" name="category">
+            </div>
+            <button type="submit" class="btn btn-primary">Применить</button>
+            <a th:href="@{/products}" type="button" class="btn btn-warning">Сброс фильтра</a>
         </form>
         <br>
 

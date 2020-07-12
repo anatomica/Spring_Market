@@ -29,5 +29,10 @@ public class ProductFilter {
             spec = spec.and(ProductSpecifications.titleLikeThis(like));
             filterDefinition.append("&like=").append(like);
         }
+        if (map.containsKey("category") && !map.get("category").isEmpty()) {
+            String category = map.get("category");
+            spec = spec.and(ProductSpecifications.findByCategory(category));
+            filterDefinition.append("&category=").append(category);
+        }
     }
 }
