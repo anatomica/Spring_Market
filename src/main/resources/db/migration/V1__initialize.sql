@@ -5,9 +5,9 @@ DROP TABLE IF EXISTS OrderClient CASCADE;
 CREATE TABLE OrderClient (id bigserial PRIMARY KEY, id_Client INT, id_Product INT);
 
 drop table if exists Products cascade;
-create table Products (id bigserial, title varchar(255), description varchar(5000), price int, id_Category int, primary key(id));
+create table Products (id bigserial, title varchar(255), description varchar(5000), price int, category_id int, primary key(id));
 insert into Products
-(title, description, price, id_Category) values
+(title, description, price, category_id) values
 ('Cheese', 'Fresh cheese', 320, 1),
 ('Milk', 'Fresh milk', 80, 2),
 ('Apples', 'Fresh apples', 80, 3),

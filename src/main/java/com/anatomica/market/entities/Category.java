@@ -21,15 +21,10 @@ public class Category {
     private int idCategory;
 
     @Column(name = "name_Category")
-    private String  nameCategory;
+    private String nameCategory;
 
-    @ManyToMany
-    @JoinTable(
-            name = "products",
-            joinColumns = @JoinColumn(name = "id_Category")
-            // , inverseJoinColumns = @JoinColumn(name = "id_Category")
-    )
-    public List<Product> products;
+//    @OneToMany(mappedBy = "category" )
+//    List<Product> products;
 
     public Category(Long id, int idCategory, String nameCategory) {
         this.id = id;

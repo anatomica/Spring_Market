@@ -23,21 +23,17 @@ public class Product {
     @Column(name = "price")
     private int price;
 
-    @Column(name = "id_category")
-    private int category;
+    @Column(name = "category_id")
+    private int category_id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "categories",
-            joinColumns = @JoinColumn(name = "id_Category")
-            // , inverseJoinColumns = @JoinColumn(name = "id_Category")
-    )
-    public List<Category> categories;
+//    @ManyToOne
+//    @JoinColumn(name = "category_id" )
+//    private Category category;
 
-    public Product(Long id, String title, int price, int category) {
+    public Product(Long id, String title, int price, int category_id) {
         this.id = id;
         this.title = title;
         this.price = price;
-        this.category = category;
+        this.category_id = category_id;
     }
 }

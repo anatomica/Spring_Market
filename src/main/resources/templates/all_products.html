@@ -73,6 +73,7 @@
                 <tr>
                     <td>ID Товара</td>
                     <td>Название</td>
+                    <td>Категория</td>
                     <td>Цена</td>
                     <td>Операции</td>
                 </tr>
@@ -81,6 +82,7 @@
                 <tr th:each="product : ${products}">
                     <td th:text="${product.id}"></td>
                     <td th:text="${product.title}" class="textInLongView"></td>
+                    <td th:text="${product.category_id}"></td>
                     <td th:text="${product.price}"></td>
                     <td><a th:href="@{'/products/edit/' + ${product.id}}" class="textInLongView">Редактировать</a></td>
                 </tr>
