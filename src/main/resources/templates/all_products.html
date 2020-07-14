@@ -53,12 +53,12 @@
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Выбор</button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/products?category=Категория 1}">Категория 1</a>
-                            <a class="dropdown-item" th:href="@{/products?category=Категория 2}">Категория 2</a>
-                            <a class="dropdown-item" th:href="@{/products?category=Категория 3}">Категория 3</a>
+                            <a class="dropdown-item" th:href="@{/products?category=1}">Категория 1</a>
+                            <a class="dropdown-item" th:href="@{/products?category=2}">Категория 2</a>
+                            <a class="dropdown-item" th:href="@{/products?category=3}">Категория 3</a>
                         </div>
                     </div>
-                    <input type="text" th:value="${param.category != null ? (param.category) : ''}" class="form-control" aria-label="Text input with dropdown button">
+                    <input type="text" th:value="${param.category != null ? ('Категория ' + param.category) : ''}" class="form-control" aria-label="Text input with dropdown button">
                 </div>
             </div>
             <a th:href="@{/products}" type="button" class="btn btn-warning">Сброс фильтра</a>
@@ -73,7 +73,6 @@
                 <tr>
                     <td>ID Товара</td>
                     <td>Название</td>
-                    <td>Категория</td>
                     <td>Цена</td>
                     <td>Операции</td>
                 </tr>

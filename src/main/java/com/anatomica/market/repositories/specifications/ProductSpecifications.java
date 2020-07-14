@@ -18,6 +18,6 @@ public class ProductSpecifications {
 
     public static Specification<Product> findByProducts(String category) {
         return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(
-                root.join("categories").get("name"), category);
+                root.join("category").get("id_category"), Integer.parseInt(category));
     }
 }

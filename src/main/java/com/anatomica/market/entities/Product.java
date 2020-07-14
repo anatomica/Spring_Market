@@ -26,24 +26,22 @@ public class Product {
     @Column(name = "price")
     private int price;
 
-    @ManyToMany
-    @JoinTable(
-            name = "products_categories",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private List<Category> categories;
+    @ManyToOne
+    @JoinColumn(name = "category" )
+    private Category category;
 
-//    @Column(name = "category_id")
-//    private int category_id;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "products_categories",
+//            joinColumns = @JoinColumn(name = "product_id"),
+//            inverseJoinColumns = @JoinColumn(name = "category_id")
+//    )
+//    private List<Category> categories;
 
-//    @ManyToOne
-//    @JoinColumn(name = "category_id" )
-//    private Category category;
-
-    public Product(Long id, String title, int price) {
-        this.id = id;
+    public Product(String title, String description, int price, Category category) {
         this.title = title;
+        this.description = description;
         this.price = price;
+        this.category = category;
     }
 }
