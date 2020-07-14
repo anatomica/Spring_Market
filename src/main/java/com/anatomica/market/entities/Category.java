@@ -17,19 +17,23 @@ public class Category {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id_Category")
-    private int idCategory;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "name_Category")
-    private String nameCategory;
+    @ManyToMany
+    @JoinTable(
+            name = "products_categories",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> products;
 
 //    @OneToMany(mappedBy = "category" )
 //    List<Product> products;
 
-    public Category(Long id, int idCategory, String nameCategory) {
+    public Category(Long id, String name) {
         this.id = id;
-        this.idCategory = idCategory;
-        this.nameCategory = nameCategory;
+        this.name = name;
     }
 }
 

@@ -17,10 +17,7 @@ public class ProductSpecifications {
     }
 
     public static Specification<Product> findByProducts(String category) {
-        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category_id"), category);
+        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(
+                root.join("categories").get("name"), category);
     }
-
-//    public static Specification<Category> findByCategories(String category) {
-//        return (Specification<Category>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category"), category);
-//    }
 }

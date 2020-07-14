@@ -20,20 +20,30 @@ public class Product {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "price")
     private int price;
 
-    @Column(name = "category_id")
-    private int category_id;
+    @ManyToMany
+    @JoinTable(
+            name = "products_categories",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories;
+
+//    @Column(name = "category_id")
+//    private int category_id;
 
 //    @ManyToOne
 //    @JoinColumn(name = "category_id" )
 //    private Category category;
 
-    public Product(Long id, String title, int price, int category_id) {
+    public Product(Long id, String title, int price) {
         this.id = id;
         this.title = title;
         this.price = price;
-        this.category_id = category_id;
     }
 }
