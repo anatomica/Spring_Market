@@ -1,7 +1,9 @@
 package com.anatomica.market.services;
 
+import com.anatomica.market.entities.Category;
 import com.anatomica.market.entities.Product;
 import com.anatomica.market.exceptions.ProductNotFoundException;
+import com.anatomica.market.repositories.CategoriesRepository;
 import com.anatomica.market.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Service
 public class ProductsService {
+    @Autowired
+    private CategoriesRepository categoriesRepository;
     private ProductsRepository productsRepository;
 
     @Autowired
@@ -36,5 +40,9 @@ public class ProductsService {
             page = 1;
         }
         return productsRepository.findAll(spec, PageRequest.of(page - 1, 10));
+    }
+
+    public List<Category> findAllCategories() {
+        return categoriesRepository.findAll();
     }
 }

@@ -1,22 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Header</title>
+    <div th:replace="~{head}"></div>
 </head>
-<body>
-<div class="header">
-    <div class="logo">
-    </div>
-    <div class="menu">
-        <ul class="textOnCenter">
-            <li class="menu_list"><a th:href="@{/}" class="menu_link">Главная</a> </li>
-            <li class="menu_list"><a th:href="@{/products}" class="menu_link">Каталог</a></li>
-            <li class="menu_list"><a th:href="@{/products/add}" class="menu_link">Добавить товар</a></li>
-        </ul>
-    </div>
-    <div class="cart">
-    </div>
+
+<div class="textOnCenter menu" th:fragment="navigation(activeTab)">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item" th:classappend="${activeTab == 'Home' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/}" th:text="#{nav.home}"></a>
+                </li>
+                <li class="nav-item" th:classappend="${activeTab == 'Market' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/products}" th:text="#{nav.products}"></a>
+                </li>
+                <li class="nav-item" th:classappend="${activeTab == 'AddProduct' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/products/add}" th:text="#{nav.addProducts}"></a>
+                </li>
+                <li class="nav-item" th:classappend="${activeTab == 'About' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/about}" th:text="#{nav.about}"></a>
+                </li>
+                <div class="dropdown" style="margin-left: 10px;">
+                    <button class="btn btn-outline-settcondary dropdown-toggle" th:text="#{nav.lang}" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:href="@{/?lang=ru}">РУС</a>
+                        <a class="dropdown-item" th:href="@{/?lang=en}">ENG</a>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </nav>
 </div>
-</body>
-</html>

@@ -1,11 +1,17 @@
 package com.anatomica.market.entities;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "Client")
+@Data
+@Getter
+@NoArgsConstructor
 public class Client implements Serializable {
     private static final long serialVersionUID = 5830463446510949899L;
 
@@ -20,14 +26,10 @@ public class Client implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "orderClient",
-            joinColumns = @JoinColumn(name = "idClient"),
-            inverseJoinColumns = @JoinColumn(name = "idProduct")
+            joinColumns = @JoinColumn(name = "id_Client"),
+            inverseJoinColumns = @JoinColumn(name = "id_Product")
     )
-
     private List<Product> products;
-
-    public Client() {
-    }
 
     public Client(Long id, String name) {
         this.id = id;
