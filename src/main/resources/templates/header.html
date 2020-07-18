@@ -20,6 +20,9 @@
                 <li class="nav-item" th:classappend="${activeTab == 'AddProduct' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/products/add}" th:text="#{nav.addProducts}"></a>
                 </li>
+                <li class="nav-item" th:classappend="${activeTab == 'Cart' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/cart}" th:text="#{nav.cart}"></a>
+                </li>
                 <li class="nav-item" th:classappend="${activeTab == 'About' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/about}" th:text="#{nav.about}"></a>
                 </li>

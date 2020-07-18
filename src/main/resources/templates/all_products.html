@@ -82,7 +82,10 @@
                     <td th:text="${product.id}"></td>
                     <td th:text="${product.title}" class="textInLongView"></td>
                     <td th:text="${product.price}"></td>
-                    <td><a th:href="@{'/products/edit/' + ${product.id}}" class="textInLongView">Редактировать</a></td>
+                    <td>
+                        <a th:href="@{'/products/edit/' + ${product.id}}" th:text="Редактировать" class="btn btn-success textInLongView"></a>
+                        <a th:href="@{'/cart/add/' + ${product.id}}" class="btn btn-primary" >Добавить в корзину</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
