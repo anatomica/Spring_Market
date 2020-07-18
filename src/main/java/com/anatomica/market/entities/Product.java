@@ -51,14 +51,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return price == product.price &&
-                Objects.equals(title, product.title) &&
-                Objects.equals(description, product.description) &&
-                Objects.equals(category, product.category);
+        return Objects.equals(id, product.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, price, category);
+        return Objects.hash(id);
     }
 }
