@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Главная</title>
+    <div th:replace="~{head}"></div>
+</head>
+
+<body>
+<div class="container">
+    <div th:replace="~{header :: navigation(Cart)}" />
+
+    <hr>
+    <div class="content">
+        <h1 class="storeName">Список товаров:</h1>
+        <br>
+        <div class="textOnCenter">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Название</td>
+                    <td>Цена</td>
+                    <td>Кол-во</td>
+                    <td>Операции</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="car, iter : ${cart.getLineItem()}">
+                    <td th:text="${car.getProduct().getTitle()}"></td>
+                    <td th:text="${car.getProduct().getPrice()}"></td>
+                    <td th:text="${car.getQty()}"></td>
+                    <td><a th:href="@{'/cart/remove/' + ${iter.index + 1}}" class="textInLongView">Удалить</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<hr>
+<div th:replace="~{footer}"></div>
+</body>
+</html>

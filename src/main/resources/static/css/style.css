@@ -112,6 +112,7 @@ p.textOnView:first-letter {
     font-size: 20px;
     font-style: italic;
     line-height: 20px;
+    margin-right: 50px;
 }
 
 .messageText {
