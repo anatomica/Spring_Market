@@ -34,7 +34,7 @@ public class User {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<com.anatomica.market.entities.Role> roles;
+    private Collection<Role> roles;
 
     public String getFullName() {
         return String.format("%s %s", firstName, lastName);

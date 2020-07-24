@@ -13,21 +13,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class UsersService implements UserDetailsService {
+    public String userEmail;
+    public List<String> userRoles;
     private UsersRepository usersRepository;
     private RolesRepository rolesRepository;
 
     @Autowired
-    public void setUsersRepository(UsersRepository usersRepository) {
+    public UsersService(UsersRepository usersRepository, RolesRepository rolesRepository) {
         this.usersRepository = usersRepository;
-    }
-
-    @Autowired
-    public void setRolesRepository(RolesRepository rolesRepository) {
         this.rolesRepository = rolesRepository;
     }
 
@@ -35,10 +34,16 @@ public class UsersService implements UserDetailsService {
         return usersRepository.findOneByPhone(phone);
     }
 
+    public List<User> findAllByEmail() {
+        return usersRepository.findAllByEmailContains(userEmail);
+    }
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = usersRepository.findOneByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Invalid username or password"));
+        userEmail = user.getEmail();
+        userRoles = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
         return new org.springframework.security.core.userdetails.User(user.getPhone(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
