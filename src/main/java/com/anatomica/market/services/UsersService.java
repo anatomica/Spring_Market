@@ -7,6 +7,7 @@ import com.anatomica.market.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,10 +20,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UsersService implements UserDetailsService {
-    public String userEmail;
-    public List<String> userRoles;
-    private UsersRepository usersRepository;
-    private RolesRepository rolesRepository;
+    public UsersRepository usersRepository;
+    public RolesRepository rolesRepository;
 
     @Autowired
     public UsersService(UsersRepository usersRepository, RolesRepository rolesRepository) {
@@ -35,6 +34,14 @@ public class UsersService implements UserDetailsService {
     }
 
     public List<User> findAllByEmail() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userEmail;
+        if (principal instanceof UserDetails) {
+             userEmail = ((UserDetails)principal).getUsername();
+            Collection<? extends GrantedAuthority> authorities = ((UserDetails)principal).getAuthorities();
+        } else {
+            userEmail = principal.toString();
+        }
         return usersRepository.findAllByEmailContains(userEmail);
     }
 
@@ -42,13 +49,14 @@ public class UsersService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = usersRepository.findOneByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Invalid username or password"));
-        userEmail = user.getEmail();
-        userRoles = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
-        return new org.springframework.security.core.userdetails.User(user.getPhone(), user.getPassword(),
+        // userEmail = user.getEmail();
+        // userRoles = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
+
 }
