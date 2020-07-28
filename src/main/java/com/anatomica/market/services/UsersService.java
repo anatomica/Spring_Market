@@ -2,6 +2,7 @@ package com.anatomica.market.services;
 
 import com.anatomica.market.entities.Role;
 import com.anatomica.market.entities.User;
+import com.anatomica.market.exceptions.ProductNotFoundException;
 import com.anatomica.market.repositories.RolesRepository;
 import com.anatomica.market.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,16 @@ public class UsersService implements UserDetailsService {
         this.rolesRepository = rolesRepository;
     }
 
+    public User findById(Long id) {
+        return usersRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Can't found user with id = " + id));
+    }
+
     public Optional<User> findByPhone(String phone) {
         return usersRepository.findOneByPhone(phone);
+    }
+
+    public List<User> findAllUsers() {
+        return (List<User>) usersRepository.findAll();
     }
 
     public List<User> findAllByEmail() {
@@ -42,7 +51,16 @@ public class UsersService implements UserDetailsService {
         } else {
             userEmail = principal.toString();
         }
-        return usersRepository.findAllByEmailContains(userEmail);
+        return usersRepository.findAllByEmailContainsAndUserBlockFalse(userEmail);
+    }
+
+    public void blockById(Long id) {
+        Optional<User> user = usersRepository.findById(id);
+        if (user.isPresent()){
+            User u = user.get();
+            u.setUserBlock(true);
+            usersRepository.save(u);
+        }
     }
 
     @Override
@@ -51,7 +69,11 @@ public class UsersService implements UserDetailsService {
         User user = usersRepository.findOneByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Invalid username or password"));
         // userEmail = user.getEmail();
         // userRoles = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
+        if (!user.isUserBlock())
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+                mapRolesToAuthorities(user.getRoles()));
+        else
+            return new org.springframework.security.core.userdetails.User("block", "block",
                 mapRolesToAuthorities(user.getRoles()));
     }
 

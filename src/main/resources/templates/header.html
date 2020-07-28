@@ -28,8 +28,14 @@
                 </li>
 
                 <li class="nav-item" style="margin: 0 10px 0 10px" th:classappend="${activeTab == 'User' ? 'active' : ''}" sec:authorize="isAuthenticated()">
-                    <form th:action="@{/user}" method="GET">
+                    <form th:action="@{/profile}" method="GET">
                         <button id="navUser" class="btn btn-outline-secondary" type="submit" th:text="#{nav.user}"></button>
+                    </form>
+                </li>
+
+                <li class="nav-item" style="margin: 0 10px 0 10px" th:classappend="${activeTab == 'User' ? 'active' : ''}" sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')">
+                    <form th:action="@{/admin}" method="GET">
+                        <button id="navAdmin" class="btn btn-outline-secondary" type="submit" th:text="#{nav.admin}"></button>
                     </form>
                 </li>
 

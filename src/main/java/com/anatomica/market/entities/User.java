@@ -30,6 +30,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "user_block")
+    private boolean userBlock;
+
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

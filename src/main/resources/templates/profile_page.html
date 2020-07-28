@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="us, iter : ${user.findAllByEmail()}">
-                    <td th:text="${us.getFirstName()}"></td>
+                    <td th:text="${us.getFullName()}"></td>
                     <td th:text="${us.getEmail()}"></td>
                     <td th:text="${us.getPhone()}"></td>
                 </tr>
