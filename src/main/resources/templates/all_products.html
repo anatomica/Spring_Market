@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" ng-app="all_products" ng-controller="productsCtrl" lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -68,23 +68,21 @@
         <h1 class="storeName">Список товаров:</h1>
         <br>
         <div class="textOnCenter">
-            <table class="table">
-                <thead>
+            <table class="table table-hover" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>ID Товара</td>
                     <td>Название</td>
                     <td>Цена</td>
                     <td>Операции</td>
                 </tr>
-                </thead>
-                <tbody>
-                <tr th:each="product : ${products}">
-                    <td th:text="${product.id}"></td>
-                    <td th:text="${product.title}" class="textInLongView"></td>
-                    <td th:text="${product.price}"></td>
+                <tbody ng-repeat="p in AllProducts">
+                <tr>
+                    <td>{{p.id}}</td>
+                    <td>{{p.title}}</td>
+                    <td>{{p.price}}</td>
                     <td>
-                        <a th:href="@{'/products/edit/' + ${product.id}}" th:text="Редактировать" class="btn btn-success textInLongView"></a>
-                        <a th:href="@{'/cart/add/' + ${product.id}}" class="btn btn-primary" >Добавить в корзину</a>
+                        <a th:href="@{products/edit/{{p.id}}}" th:text="Редактировать" class="btn btn-success textInLongView"></a>
+                        <a th:href="@{cart/add/{{p.id}}}" class="btn btn-primary" >Добавить в корзину</a>
                     </td>
                 </tr>
                 </tbody>
@@ -116,4 +114,18 @@
 <hr>
 <div th:replace="~{footer}"></div>
 </body>
+
+<script>
+    var app = angular.module('all_products', []);
+    app.controller('productsCtrl', function($scope, $http) {
+        fillTable = function() {
+            $http.get("http://localhost:8189/market/api/v1/products/dto")
+                .then(function(response) {
+                    $scope.AllProducts = response.data;
+                });
+        };
+        fillTable();
+    });
+</script>
+
 </html>

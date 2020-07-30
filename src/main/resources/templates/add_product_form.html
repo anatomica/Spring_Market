@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" ng-app="add_product" ng-controller="add_productCtrl" lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -16,7 +16,18 @@
         <h1 class="storeName">Добавить новый товар:</h1>
         <br>
         <div class="textOnCenter">
-            <!--/*@thymesVar id="product" type="Homework2.model.Product"*/-->
+
+            <h2>Add new Item</h2>
+            <form name="addProductForm" novalidate ng-submit="submitProduct()">
+                ID:
+                <input type="text" ng-model="title">
+                Title:
+                <input type="text" ng-model="description">
+                Value:
+                <input type="text" ng-model="price">
+                <button type="submit">submit</button>
+            </form>
+
             <form th:action="@{/products/add}" method="POST">
                 <input type="text" name="title" placeholder="Введите название товара"/>
                 <input type="text" name="description" placeholder="Введите описание товара"/>
@@ -30,4 +41,18 @@
 <hr>
 <div th:replace="~{footer}"></div>
 </body>
+
+<script>
+    var app = angular.module('add_product', []);
+    app.controller('add_productCtrl', function($scope, $http) {
+        $scope.submitProduct = function() {
+            $http.post('http://localhost:8199/market/api/v1/products', $scope.product)
+                .then(function(response) {
+                    console.log(123);
+                    $scope.product.push(response.data);
+                });
+        };
+    });
+</script>
+
 </html>
