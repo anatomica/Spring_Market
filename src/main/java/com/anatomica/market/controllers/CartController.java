@@ -1,46 +1,42 @@
 package com.anatomica.market.controllers;
 
-import com.anatomica.market.services.CartService;
+import com.anatomica.market.beans.Cart;
 import com.anatomica.market.services.ProductsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/cart")
+@AllArgsConstructor
 public class CartController {
-    public CartService cartService;
-    public ProductsService productsService;
-
-    @Autowired
-    public CartController(CartService cartService, ProductsService productsService) {
-        this.productsService = productsService;
-        this.cartService = cartService;
-    }
+    private ProductsService productsService;
+    private Cart cart;
 
     @GetMapping
-    public String showCart(Model model) {
-        model.addAttribute("cart", cartService);
+    public String showCartPage(Model model) {
         return "cart";
     }
 
-    @GetMapping("/add/{id}")
-    public String addToCart(@PathVariable Long id, Model model) {
-        model.addAttribute("cart", productsService.findById(id));
-        cartService.addProductQty(productsService.findById(id), 1);
-        return "redirect:/products";
+    @GetMapping("/add/{productId}")
+    public void addProductToCartById(@PathVariable Long productId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        cart.add(productsService.findById(productId));
+        response.sendRedirect(request.getHeader("referer"));
     }
 
-    @GetMapping("/remove/{id}")
-    public String removeFromCart(@PathVariable Long id) {
-        cartService.removeProductQty(cartService.getLineItem().get(Math.toIntExact(id) - 1).getProduct(), 1);
-        return "redirect:/cart";
+    @GetMapping("/decrement/{productId}")
+    public void decrementProductToCartById(@PathVariable Long productId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        cart.decrement(productsService.findById(productId));
+        response.sendRedirect(request.getHeader("referer"));
     }
 
-    @GetMapping("/removeAll/{id}")
-    public String removeAllFromCart(@PathVariable Long id) {
-        cartService.removeProductQty(cartService.getLineItem().get(Math.toIntExact(id) - 1).getProduct(), 1000);
-        return "redirect:/cart";
+    @GetMapping("/remove/{productId}")
+    public void removeProductFromCartById(@PathVariable Long productId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        cart.removeByProductId(productId);
+        response.sendRedirect(request.getHeader("referer"));
     }
 }

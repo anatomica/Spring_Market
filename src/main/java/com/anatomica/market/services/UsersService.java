@@ -34,8 +34,8 @@ public class UsersService implements UserDetailsService {
         return usersRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Can't found user with id = " + id));
     }
 
-    public Optional<User> findByPhone(String phone) {
-        return usersRepository.findOneByPhone(phone);
+    public Optional<User> findByEmail(String email) {
+        return usersRepository.findOneByEmail(email);
     }
 
     public List<User> findAllUsers() {
