@@ -13,10 +13,9 @@
 
     <hr>
     <div class="content">
-        <h2 class="storeName">Отфильтровать:</h2>
-        <br>
 
         <form class="textCenter" th:action="@{'/products'}" method="GET">
+            <h2 class="storeName">Отфильтровать:</h2>
             <div class="form-group">
                 <label>Минимальная цена</label>
                 <input type="number" th:value="${param.min_price != null ? param.min_price : ''}" class="form-control" name="min_price">
@@ -30,10 +29,8 @@
         </form>
         <br>
 
-        <h1 class="storeName">Найти товар по части названия:</h1>
-        <br>
-
         <form class="textCenter" th:action="@{'/products'}" method="GET">
+            <h2 class="storeName">Найти товар по названию:</h2>
             <div class="form-group">
                 <label>Название содержит:</label>
                 <input type="text" th:value="${param.like != null ? param.like : ''}" class="form-control" name="like">
@@ -43,10 +40,8 @@
         </form>
         <br>
 
-        <h1 class="storeName">Найти товар по категории:</h1>
-        <br>
-
         <form class="textCenter" th:action="@{'/products'}" method="GET">
+            <h2 class="storeName">Найти товар по категории:</h2>
             <div class="form-group">
                 <label>Название содержит:</label>
                 <div class="input-group mb-3">

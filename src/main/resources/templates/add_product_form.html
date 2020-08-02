@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" ng-app="add_product" ng-controller="add_productCtrl" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" ng-app="add_product" ng-controller="Add_product_Ctrl" lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -17,23 +17,14 @@
         <br>
         <div class="textOnCenter">
 
-            <h2>Add new Item</h2>
-            <form name="addProductForm" novalidate ng-submit="submitProduct()">
-                ID:
-                <input type="text" ng-model="title">
-                Title:
-                <input type="text" ng-model="description">
-                Value:
-                <input type="text" ng-model="price">
-                <button type="submit">submit</button>
+            <form th:action="@{/products}" name="addDemoForm" novalidate ng-submit="submit()">
+                <input type="text" placeholder="Введите название" ng-model="product.title">
+                <input type="text" placeholder="Введите описание" ng-model="product.description">
+                <input type="text" placeholder="Введите цену" ng-model="product.price">
+                <button type="submit">Подтвердить</button>
             </form>
 
-            <form th:action="@{/products/add}" method="POST">
-                <input type="text" name="title" placeholder="Введите название товара"/>
-                <input type="text" name="description" placeholder="Введите описание товара"/>
-                <input type="text" name="price" placeholder="Введите цену товара"/>
-                <input type="submit"/>
-            </form>
+            <br>
         </div>
     </div>
 </div>
@@ -44,13 +35,13 @@
 
 <script>
     var app = angular.module('add_product', []);
-    app.controller('add_productCtrl', function($scope, $http) {
-        $scope.submitProduct = function() {
-            $http.post('http://localhost:8199/market/api/v1/products', $scope.product)
-                .then(function(response) {
-                    console.log(123);
-                    $scope.product.push(response.data);
-                });
+    app.controller('Add_product_Ctrl', function($scope, $http) {
+        $scope.submit = function() {
+            $http.post('http://localhost:8189/market/api/v1/products', $scope.product)
+                    .then(function(response) {
+                        console.log();
+                        $scope.Product.push(response.data);
+                    });
         };
     });
 </script>

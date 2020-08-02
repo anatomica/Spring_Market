@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -39,6 +38,12 @@ public class Product {
 //            inverseJoinColumns = @JoinColumn(name = "category_id")
 //    )
 //    private List<Category> categories;
+
+    public Product(String title, String description, BigDecimal price) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+    }
 
     public Product(String title, String description, BigDecimal price, Category category) {
         this.title = title;
