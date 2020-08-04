@@ -1,5 +1,6 @@
 package com.anatomica.market.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,19 +25,25 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
+    @JsonBackReference
     List<Product> products;
 
 //    @ManyToMany
-//    @JoinTable(
-//            name = "products_categories",
-//            joinColumns = @JoinColumn(name = "id_category"),
-//            inverseJoinColumns = @JoinColumn(name = "id_product")
+//    @JoinTable(name = "products_categories",
+//            joinColumns = @JoinColumn(name = "category_id"),
+//            inverseJoinColumns = @JoinColumn(name = "product_id")
 //    )
+//    @JsonBackReference
 //    private List<Product> products;
 
     public Category(String id_category, String name) {
         this.id_category = id_category;
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
 
