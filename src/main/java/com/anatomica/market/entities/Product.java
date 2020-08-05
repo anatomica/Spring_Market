@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -25,7 +25,7 @@ public class Product {
     private String description;
 
     @Column(name = "price")
-    private int price;
+    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "category" )
@@ -39,7 +39,13 @@ public class Product {
 //    )
 //    private List<Category> categories;
 
-    public Product(String title, String description, int price, Category category) {
+    public Product(String title, String description, BigDecimal price) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+    }
+
+    public Product(String title, String description, BigDecimal price, Category category) {
         this.title = title;
         this.description = description;
         this.price = price;

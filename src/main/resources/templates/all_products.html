@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" ng-app="all_products" ng-controller="productsCtrl" lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -13,10 +13,9 @@
 
     <hr>
     <div class="content">
-        <h2 class="storeName">Отфильтровать:</h2>
-        <br>
 
         <form class="textCenter" th:action="@{'/products'}" method="GET">
+            <h2 class="storeName">Отфильтровать:</h2>
             <div class="form-group">
                 <label>Минимальная цена</label>
                 <input type="number" th:value="${param.min_price != null ? param.min_price : ''}" class="form-control" name="min_price">
@@ -30,10 +29,8 @@
         </form>
         <br>
 
-        <h1 class="storeName">Найти товар по части названия:</h1>
-        <br>
-
         <form class="textCenter" th:action="@{'/products'}" method="GET">
+            <h2 class="storeName">Найти товар по названию:</h2>
             <div class="form-group">
                 <label>Название содержит:</label>
                 <input type="text" th:value="${param.like != null ? param.like : ''}" class="form-control" name="like">
@@ -43,10 +40,8 @@
         </form>
         <br>
 
-        <h1 class="storeName">Найти товар по категории:</h1>
-        <br>
-
         <form class="textCenter" th:action="@{'/products'}" method="GET">
+            <h2 class="storeName">Найти товар по категории:</h2>
             <div class="form-group">
                 <label>Название содержит:</label>
                 <div class="input-group mb-3">
@@ -68,23 +63,21 @@
         <h1 class="storeName">Список товаров:</h1>
         <br>
         <div class="textOnCenter">
-            <table class="table">
-                <thead>
+            <table class="table table-hover" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>ID Товара</td>
                     <td>Название</td>
                     <td>Цена</td>
                     <td>Операции</td>
                 </tr>
-                </thead>
-                <tbody>
-                <tr th:each="product : ${products}">
-                    <td th:text="${product.id}"></td>
-                    <td th:text="${product.title}" class="textInLongView"></td>
-                    <td th:text="${product.price}"></td>
+                <tbody ng-repeat="p in AllProducts">
+                <tr>
+                    <td>{{p.id}}</td>
+                    <td>{{p.title}}</td>
+                    <td>{{p.price}}</td>
                     <td>
-                        <a th:href="@{'/products/edit/' + ${product.id}}" th:text="Редактировать" class="btn btn-success textInLongView"></a>
-                        <a th:href="@{'/cart/add/' + ${product.id}}" class="btn btn-primary" >Добавить в корзину</a>
+                        <a th:href="@{products/edit/{{p.id}}}" th:text="Редактировать" class="btn btn-success textInLongView"></a>
+                        <a th:href="@{cart/add/{{p.id}}}" class="btn btn-primary" >Добавить в корзину</a>
                     </td>
                 </tr>
                 </tbody>
@@ -116,4 +109,18 @@
 <hr>
 <div th:replace="~{footer}"></div>
 </body>
+
+<script>
+    var app = angular.module('all_products', []);
+    app.controller('productsCtrl', function($scope, $http) {
+        fillTable = function() {
+            $http.get("http://localhost:8189/market/api/v1/products")
+                .then(function(response) {
+                    $scope.AllProducts = response.data;
+                });
+        };
+        fillTable();
+    });
+</script>
+
 </html>

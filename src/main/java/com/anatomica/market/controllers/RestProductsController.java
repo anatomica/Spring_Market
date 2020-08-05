@@ -4,15 +4,19 @@ import com.anatomica.market.entities.Product;
 import com.anatomica.market.entities.dtos.ProductDto;
 import com.anatomica.market.exceptions.ProductNotFoundException;
 import com.anatomica.market.services.ProductsService;
+import com.anatomica.market.utils.ProductFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -32,10 +36,14 @@ public class RestProductsController {
         return productsService.getDtoData();
     }
 
+
     @GetMapping(produces = "application/json")
     @ApiOperation("Returns list of all products")
-    public List<Product> getAllProducts() {
-        return productsService.findAll();
+    public List<Product> getAllProducts(@RequestParam Map<String, String> requestParams) {
+        // Integer pageNumber = Integer.parseInt(requestParams.getOrDefault("p", "1"));
+        ProductFilter productFilter = new ProductFilter(requestParams);
+        Page<Product> products = productsService.findAll(productFilter.getSpec(), ProductsController.pageNumber);
+        return products.getContent();
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
@@ -75,7 +83,7 @@ public class RestProductsController {
         if (product.getId() == null || !productsService.existsById(product.getId())) {
             throw new ProductNotFoundException("Product not found, id: " + product.getId());
         }
-        if (product.getPrice() < 0) {
+        if (product.getPrice().doubleValue() < 0.0) {
             return new ResponseEntity<>("Product's price can not be negative", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(productsService.saveOrUpdate(product), HttpStatus.OK);
@@ -85,4 +93,5 @@ public class RestProductsController {
     public ResponseEntity<?> handleException(ProductNotFoundException exc) {
         return new ResponseEntity<>(exc.getMessage(), HttpStatus.NOT_FOUND);
     }
+
 }
