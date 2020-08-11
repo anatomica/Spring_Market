@@ -1,3 +1,30 @@
-﻿<h1>Home</h1>
-<p>You're logged in!!</p>
-<p><a href="#/login">Logout</a></p>
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" ng-app="BasicHttpAuthExample" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Главная</title>
+    <div th:replace="~{head}"></div>
+</head>
+
+<body ng-controller="LoginController">
+<div class="container">
+    <div th:replace="~{header :: navigation(Home)}" />
+
+    <hr>
+    <div class="content">
+        <h1 class="storeName">Магазин</h1>
+        <br>
+        <a class="storeName textOnCenter" th:href="@{/#/products}">Каталог</a>
+        <br>
+        <a class="storeName textOnCenter" th:href="@{/#/products/add}">Добавить товар</a>
+        <br>
+    </div>
+</div>
+
+<hr>
+<div th:replace="~{footer}"></div>
+</body>
+</html>
+
+

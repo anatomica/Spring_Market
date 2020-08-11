@@ -5,10 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AdditionalController {
-    @GetMapping("/about")
-    public String aboutPage() {
-        return "about";
-    }
 
     @GetMapping("/")
     public String homepage() {
@@ -25,9 +21,19 @@ public class AdditionalController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logoutPage() {
+        return "index";
+    }
+
     @GetMapping("/home")
     public String home() {
         return "home";
+    }
+
+    @GetMapping("/about")
+    public String aboutPage() {
+        return "about";
     }
 
 }

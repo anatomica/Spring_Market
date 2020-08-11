@@ -13,30 +13,9 @@
 </head>
 
 <body>
-<div class="container">
-    <div th:replace="~{header :: navigation(Home)}" />
-
-    <hr>
-    <div class="content">
-        <h1 class="storeName">Магазин</h1>
-        <br>
-        <a class="storeName textOnCenter" th:href="@{/products}">Каталог</a>
-        <br>
-        <a class="storeName textOnCenter" th:href="@{/products/add}">Добавить товар</a>
-        <br>
-    </div>
-
-    <div class="jumbotron">
-        <div class="container">
-            <div class="col-xs-offset-2 col-xs-8">
-                <div ng-view></div>
-            </div>
-        </div>
-    </div>
-
+<div>
+    <div ng-view></div>
 </div>
 
-<hr>
-<div th:replace="~{footer}"></div>
 </body>
 </html>

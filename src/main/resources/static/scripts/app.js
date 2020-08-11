@@ -1,11 +1,11 @@
-﻿'use strict';
-
-// declare modules
+﻿// declare modules
 angular.module('Authentication', []);
+// angular.module('Products', []);
 angular.module('Home', []);
 
 angular.module('BasicHttpAuthExample', [
     'Authentication',
+    // 'Products',
     'Home',
     'ngRoute',
     'ngCookies'
@@ -14,19 +14,39 @@ angular.module('BasicHttpAuthExample', [
 .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
-        .when('/login', {
-            controller: 'LoginController',
-            templateUrl: 'login'
-        })
-
         .when('/', {
             controller: 'HomeController',
             templateUrl: 'home'
         })
 
+        .when('/login', {
+            controller: 'LoginController',
+            templateUrl: 'login'
+        })
+
+        .when('/logout', {
+            controller: 'LoginController',
+            templateUrl: 'logout'
+        })
+
         .when('/products', {
             controller: 'HomeController',
             templateUrl: 'products'
+        })
+
+        .when('/cart', {
+            controller: 'HomeController',
+            templateUrl: 'cart'
+        })
+
+        .when('/profile', {
+            controller: 'HomeController',
+            templateUrl: 'profile'
+        })
+
+        .when('/admin', {
+            controller: 'HomeController',
+            templateUrl: 'admin'
         })
 
         .otherwise({ redirectTo: '/login' });
