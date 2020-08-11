@@ -15,9 +15,19 @@ public class AdditionalController {
         return "index";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login_dev")
     public String loginPage() {
         return "login_page";
+    }
+
+    @GetMapping("/login")
+    public String loginPageJS() {
+        return "login";
+    }
+
+    @GetMapping("/home")
+    public String home() {
+        return "home";
     }
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -7,6 +7,7 @@
     <div th:replace="~{head}"></div>
 </head>
 
+<body>
 <div class="textOnCenter menu" th:fragment="navigation(activeTab)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -45,7 +46,7 @@
                     </form>
                 </li>
 
-                <li sec:authorize="isAnonymous()" class="nav-item">
+                <li sec:authorize="isAnonymous()" class="nav-item" style="margin: 0 10px 0 10px">
                     <form class="align-middle" th:action="@{/authenticate}" method="POST">
                         <div class="input-group-prepend">
                             <input id="navLoginField" class="form-control" type="text" th:placeholder="#{nav.login.field}" name="username"
@@ -72,3 +73,5 @@
         </div>
     </nav>
 </div>
+</body>
+</html>

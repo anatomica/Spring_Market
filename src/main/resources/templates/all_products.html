@@ -13,6 +13,50 @@
 
     <hr>
     <div class="content">
+        <br>
+        <h1 class="storeName">Список товаров:</h1>
+        <br>
+        <div class="textOnCenter">
+            <table class="table table-hover" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>ID Товара</td>
+                    <td>Название</td>
+                    <td>Цена</td>
+                    <td>Операции</td>
+                </tr>
+                <tbody ng-repeat="p in AllProducts">
+                <tr>
+                    <td>{{p.id}}</td>
+                    <td>{{p.title}}</td>
+                    <td>{{p.price}}</td>
+                    <td>
+                        <a th:href="@{products/edit/{{p.id}}}" th:text="Редактировать" class="btn btn-success textInLongView"></a>
+                        <a th:href="@{cart/add/{{p.id}}}" class="btn btn-primary" >Добавить в корзину</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{'/products/?p='+ ${products.previousOrFirstPageable().getPageNumber() + 1} + ${filterDef}}"
+                           th:if="${!products.first}">Назад</a>
+                    </li>
+
+                    <li class="page-item" th:classappend="${products.getNumber() + 1 == i ? 'active' : ''}"
+                        th:each="i : ${#numbers.sequence(1, products.getTotalPages())}">
+                        <a class="page-link" th:text="${i}" th:href="@{'/products/?p=' + ${i} + ${filterDef}}"></a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{'/products/?p='+ ${products.nextOrLastPageable().getPageNumber() + 1} + ${filterDef}}"
+                           th:if="${!products.last}">Вперед</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
         <form class="textCenter" th:action="@{'/products'}" method="GET">
             <h2 class="storeName">Отфильтровать:</h2>
@@ -60,49 +104,6 @@
         </form>
         <br>
 
-        <h1 class="storeName">Список товаров:</h1>
-        <br>
-        <div class="textOnCenter">
-            <table class="table table-hover" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td>ID Товара</td>
-                    <td>Название</td>
-                    <td>Цена</td>
-                    <td>Операции</td>
-                </tr>
-                <tbody ng-repeat="p in AllProducts">
-                <tr>
-                    <td>{{p.id}}</td>
-                    <td>{{p.title}}</td>
-                    <td>{{p.price}}</td>
-                    <td>
-                        <a th:href="@{products/edit/{{p.id}}}" th:text="Редактировать" class="btn btn-success textInLongView"></a>
-                        <a th:href="@{cart/add/{{p.id}}}" class="btn btn-primary" >Добавить в корзину</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link"
-                           th:href="@{'/products/?p='+ ${products.previousOrFirstPageable().getPageNumber() + 1} + ${filterDef}}"
-                           th:if="${!products.first}">Назад</a>
-                    </li>
-
-                    <li class="page-item" th:classappend="${products.getNumber() + 1 == i ? 'active' : ''}"
-                        th:each="i : ${#numbers.sequence(1, products.getTotalPages())}">
-                        <a class="page-link" th:text="${i}" th:href="@{'/products/?p=' + ${i} + ${filterDef}}"></a>
-                    </li>
-
-                    <li class="page-item">
-                        <a class="page-link"
-                           th:href="@{'/products/?p='+ ${products.nextOrLastPageable().getPageNumber() + 1} + ${filterDef}}"
-                           th:if="${!products.last}">Вперед</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
     </div>
 </div>
 
@@ -114,7 +115,7 @@
     var app = angular.module('all_products', []);
     app.controller('productsCtrl', function($scope, $http) {
         fillTable = function() {
-            window.btoa("admin@gmail.com:100")
+            // window.btoa("admin@gmail.com:100")
             $http.get("http://localhost:8189/market/api/v1/products")
                 .then(function(response) {
                     $scope.AllProducts = response.data;
