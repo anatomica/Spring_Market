@@ -1,11 +1,11 @@
 ﻿// declare modules
 angular.module('Authentication', []);
-// angular.module('Products', []);
+angular.module('Products', []);
 angular.module('Home', []);
 
 angular.module('BasicHttpAuthExample', [
     'Authentication',
-    // 'Products',
+    'Products',
     'Home',
     'ngRoute',
     'ngCookies'
@@ -30,8 +30,18 @@ angular.module('BasicHttpAuthExample', [
         })
 
         .when('/products', {
-            controller: 'HomeController',
+            controller: 'ProductsController',
             templateUrl: 'products'
+        })
+
+        .when('/products/add', {
+            controller: 'ProductsController',
+            templateUrl: 'products/add'
+        })
+
+        .when('/products/edit', {
+            controller: 'ProductsController',
+            templateUrl: 'products/edit'
         })
 
         .when('/cart', {
@@ -49,7 +59,15 @@ angular.module('BasicHttpAuthExample', [
             templateUrl: 'admin'
         })
 
-        .otherwise({ redirectTo: '/login' });
+        .when('/about', {
+            controller: 'HomeController',
+            templateUrl: 'about'
+        })
+
+        .otherwise({
+            redirectTo: '/login' }
+        )
+    ;
 }])
 
 .run(['$rootScope', '$location', '$cookieStore', '$http',

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" ng-app="all_products" ng-controller="productsCtrl" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -30,8 +30,8 @@
                     <td>{{p.title}}</td>
                     <td>{{p.price}}</td>
                     <td>
-                        <a th:href="@{products/edit/{{p.id}}}" th:text="Редактировать" class="btn btn-success textInLongView"></a>
-                        <a th:href="@{cart/add/{{p.id}}}" class="btn btn-primary" >Добавить в корзину</a>
+                        <a th:href="@{#/products/edit/{{p.id}}}" th:text="Редактировать" class="btn btn-success textInLongView"></a>
+                        <a th:href="@{#/cart/add/{{p.id}}}" class="btn btn-primary" >Добавить в корзину</a>
                     </td>
                 </tr>
                 </tbody>
@@ -40,18 +40,18 @@
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{'/products/?p='+ ${products.previousOrFirstPageable().getPageNumber() + 1} + ${filterDef}}"
+                           th:href="@{'/#/products/?p='+ ${products.previousOrFirstPageable().getPageNumber() + 1} + ${filterDef}}"
                            th:if="${!products.first}">Назад</a>
                     </li>
 
                     <li class="page-item" th:classappend="${products.getNumber() + 1 == i ? 'active' : ''}"
                         th:each="i : ${#numbers.sequence(1, products.getTotalPages())}">
-                        <a class="page-link" th:text="${i}" th:href="@{'/products/?p=' + ${i} + ${filterDef}}"></a>
+                        <a class="page-link" th:text="${i}" th:href="@{'/#/products/?p=' + ${i} + ${filterDef}}"></a>
                     </li>
 
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{'/products/?p='+ ${products.nextOrLastPageable().getPageNumber() + 1} + ${filterDef}}"
+                           th:href="@{'/#/products/?p='+ ${products.nextOrLastPageable().getPageNumber() + 1} + ${filterDef}}"
                            th:if="${!products.last}">Вперед</a>
                     </li>
                 </ul>
@@ -80,7 +80,7 @@
                 <input type="text" th:value="${param.like != null ? param.like : ''}" class="form-control" name="like">
             </div>
             <button type="submit" class="btn btn-primary">Применить</button>
-            <a th:href="@{/products}" type="button" class="btn btn-warning">Сброс фильтра</a>
+            <a th:href="@{/#/products}" type="button" class="btn btn-warning">Сброс фильтра</a>
         </form>
         <br>
 
@@ -92,15 +92,15 @@
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Выбор</button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/products?category=1}">Категория 1</a>
-                            <a class="dropdown-item" th:href="@{/products?category=2}">Категория 2</a>
-                            <a class="dropdown-item" th:href="@{/products?category=3}">Категория 3</a>
+                            <a class="dropdown-item" th:href="@{/#/products?category=1}">Категория 1</a>
+                            <a class="dropdown-item" th:href="@{/#/products?category=2}">Категория 2</a>
+                            <a class="dropdown-item" th:href="@{/#/products?category=3}">Категория 3</a>
                         </div>
                     </div>
                     <input type="text" th:value="${param.category != null ? ('Категория ' + param.category) : ''}" class="form-control" aria-label="Text input with dropdown button">
                 </div>
             </div>
-            <a th:href="@{/products}" type="button" class="btn btn-warning">Сброс фильтра</a>
+            <a th:href="@{/#/products}" type="button" class="btn btn-warning">Сброс фильтра</a>
         </form>
         <br>
 
@@ -110,19 +110,5 @@
 <hr>
 <div th:replace="~{footer}"></div>
 </body>
-
-<script>
-    var app = angular.module('all_products', []);
-    app.controller('productsCtrl', function($scope, $http) {
-        fillTable = function() {
-            // window.btoa("admin@gmail.com:100")
-            $http.get("http://localhost:8189/market/api/v1/products")
-                .then(function(response) {
-                    $scope.AllProducts = response.data;
-                });
-        };
-        fillTable();
-    });
-</script>
 
 </html>
