@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" ng-app="add_product" ng-controller="Add_product_Ctrl" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -17,7 +17,7 @@
         <br>
         <div class="textOnCenter">
 
-            <form th:action="@{/products}" name="addDemoForm" novalidate ng-submit="submit()">
+            <form th:action="@{/products}" name="addDemoForm" novalidate ng-submit="submitAdd()">
                 <input type="text" placeholder="Введите название" ng-model="product.title">
                 <input type="text" placeholder="Введите описание" ng-model="product.description">
                 <input type="text" placeholder="Введите цену" ng-model="product.price">
@@ -32,19 +32,5 @@
 <hr>
 <div th:replace="~{footer}"></div>
 </body>
-
-<script>
-    var app = angular.module('add_product', []);
-    app.controller('Add_product_Ctrl', function($scope, $http) {
-        $scope.submit = function() {
-            // window.btoa("admin@gmail.com:100")
-            $http.post('http://localhost:8189/market/api/v1/products', $scope.product)
-                    .then(function(response) {
-                        console.log();
-                        $scope.Product.push(response.data);
-                    });
-        };
-    });
-</script>
 
 </html>

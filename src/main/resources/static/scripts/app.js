@@ -1,10 +1,12 @@
 ﻿// declare modules
 angular.module('Authentication', []);
+angular.module('addProduct', []);
 angular.module('Products', []);
 angular.module('Home', []);
 
 angular.module('BasicHttpAuthExample', [
     'Authentication',
+    'addProduct',
     'Products',
     'Home',
     'ngRoute',
@@ -35,7 +37,7 @@ angular.module('BasicHttpAuthExample', [
         })
 
         .when('/products/add', {
-            controller: 'ProductsController',
+            controller: 'addProductCtrl',
             templateUrl: 'products/add'
         })
 
