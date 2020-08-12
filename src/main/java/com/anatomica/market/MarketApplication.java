@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MarketApplication {
 
-	// products: http://127.0.0.1:8189/market/products
-	// swagger: http://127.0.0.1:8189/market/swagger-ui.html
+	// products: http://localhost:8189/market/products
+	// swagger: http://localhost:8189/market/swagger-ui.html
 
 	public static void main(String[] args) {
 		SpringApplication.run(MarketApplication.class, args);

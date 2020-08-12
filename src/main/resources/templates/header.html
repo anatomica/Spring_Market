@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -7,6 +7,7 @@
     <div th:replace="~{head}"></div>
 </head>
 
+<body>
 <div class="textOnCenter menu" th:fragment="navigation(activeTab)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -15,46 +16,63 @@
                     <a class="nav-link" th:href="@{/}" th:text="#{nav.home}"></a>
                 </li>
                 <li class="nav-item" th:classappend="${activeTab == 'Market' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/products}" th:text="#{nav.products}"></a>
+                    <a class="nav-link" th:href="@{/#/products}" th:text="#{nav.products}"></a>
                 </li>
                 <li class="nav-item" th:classappend="${activeTab == 'AddProduct' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/products/add}" th:text="#{nav.addProducts}"></a>
+                    <a class="nav-link" th:href="@{/#/products/add}" th:text="#{nav.addProducts}"></a>
                 </li>
                 <li class="nav-item" th:classappend="${activeTab == 'Cart' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/cart}" th:text="#{nav.cart}"></a>
+                    <a class="nav-link" th:href="@{/#/cart}" th:text="#{nav.cart}"></a>
                 </li>
                 <li class="nav-item" th:classappend="${activeTab == 'About' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/about}" th:text="#{nav.about}"></a>
+                    <a class="nav-link" th:href="@{/#/about}" th:text="#{nav.about}"></a>
                 </li>
 
                 <li class="nav-item" style="margin: 0 10px 0 10px" th:classappend="${activeTab == 'User' ? 'active' : ''}" sec:authorize="isAuthenticated()">
-                    <form th:action="@{/profile}" method="GET">
+                    <form th:action="@{/#/profile}" method="GET">
                         <button id="navUser" class="btn btn-outline-secondary" type="submit" th:text="#{nav.user}"></button>
                     </form>
                 </li>
 
                 <li class="nav-item" style="margin: 0 10px 0 10px" th:classappend="${activeTab == 'User' ? 'active' : ''}" sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')">
-                    <form th:action="@{/admin}" method="GET">
+                    <form th:action="@{/#/admin}" method="GET">
                         <button id="navAdmin" class="btn btn-outline-secondary" type="submit" th:text="#{nav.admin}"></button>
                     </form>
                 </li>
 
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <form th:action="@{/logout}" method="POST">
+<!--                    <form th:action="@{/#/logout}" method="POST">-->
+                    <form th:action="@{/#/Login}" method="GET">
                         <button id="navLogout" class="btn btn-outline-secondary" type="submit" th:text="#{nav.logout}"></button>
                     </form>
                 </li>
 
-                <li sec:authorize="isAnonymous()" class="nav-item">
-                    <form class="align-middle" th:action="@{/authenticate}" method="POST">
+                <li ng-controller="LoginController" sec:authorize="isAnonymous()" class="nav-item" style="margin: 0 10px 0 10px">
+                    <form name="form" ng-submit="login()" role="form">
                         <div class="input-group-prepend">
-                            <input id="navLoginField" class="form-control" type="text" th:placeholder="#{nav.login.field}" name="username"
+                            <input type="text" name="username" id="username" class="form-control" ng-model="username" required
                                    aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
-                            <input id="navPasswordField" class="form-control" type="password" th:placeholder="#{nav.password}" name="password"
+                            <input type="password" name="password" id="password" class="form-control" ng-model="password" required
                                    aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
-                            <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm" style="margin-left: 10px;" type="submit" th:text="#{nav.login.submit}"></button>
+                            <button class="btn btn-outline-warning btn-sm" style="margin-left: 10px;" type="submit" th:text="#{nav.login.submit}" ng-disabled="form.$invalid || dataLoading"></button>
                         </div>
                     </form>
+                </li>
+
+<!--                <li sec:authorize="isAnonymous()" class="nav-item" style="margin: 0 10px 0 10px">-->
+<!--                    <form class="align-middle" th:action="@{/authenticate}" method="POST">-->
+<!--                        <div class="input-group-prepend">-->
+<!--                            <input id="navLoginField" class="form-control" type="text" th:placeholder="#{nav.login.field}" name="username"-->
+<!--                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">-->
+<!--                            <input id="navPasswordField" class="form-control" type="password" th:placeholder="#{nav.password}" name="password"-->
+<!--                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">-->
+<!--                            <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm" style="margin-left: 10px;" type="submit" th:text="#{nav.login.submit}"></button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </li>-->
+
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a class="btn btn-outline-warning" th:href="@{/register}" th:text="'Регистрация'" />
                 </li>
 
                 <div class="dropdown" style="margin-left: 10px;">
@@ -68,3 +86,5 @@
         </div>
     </nav>
 </div>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.anatomica.market.services;
 
 import com.anatomica.market.entities.Role;
 import com.anatomica.market.entities.User;
+import com.anatomica.market.entities.dtos.SystemUser;
 import com.anatomica.market.exceptions.ProductNotFoundException;
 import com.anatomica.market.repositories.RolesRepository;
 import com.anatomica.market.repositories.UsersRepository;
@@ -12,8 +13,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -21,13 +25,23 @@ import java.util.stream.Collectors;
 
 @Service
 public class UsersService implements UserDetailsService {
-    public UsersRepository usersRepository;
-    public RolesRepository rolesRepository;
+    private UsersRepository usersRepository;
+    private RolesService rolesService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsersService(UsersRepository usersRepository, RolesRepository rolesRepository) {
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Autowired
+    public void setUsersRepository(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
-        this.rolesRepository = rolesRepository;
+    }
+
+    @Autowired
+    public void setRolesService(RolesService rolesService) {
+        this.rolesService = rolesService;
     }
 
     public User findById(Long id) {
@@ -75,6 +89,21 @@ public class UsersService implements UserDetailsService {
         else
             return new org.springframework.security.core.userdetails.User("block", "block",
                 mapRolesToAuthorities(user.getRoles()));
+    }
+
+    @Transactional
+    public User save(SystemUser systemUser) {
+        User user = new User();
+        findByEmail(systemUser.getEmail()).ifPresent((email) -> {
+            throw new RuntimeException("User with E-mail " + systemUser.getEmail() + " is already exist");
+        });
+        user.setPhone(systemUser.getPhone());
+        user.setPassword(passwordEncoder.encode(systemUser.getPassword()));
+        user.setFirstName(systemUser.getFirstName());
+        user.setLastName(systemUser.getLastName());
+        user.setEmail(systemUser.getEmail());
+        user.setRoles(Arrays.asList(rolesService.findByName("ROLE_CUSTOMER")));
+        return usersRepository.save(user);
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
