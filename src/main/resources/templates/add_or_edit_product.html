@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Добавить или изменить</title>
+    <div th:replace="~{head}"></div>
+</head>
+
+<body>
+<div class="container">
+    <div th:replace="~{header :: navigation(AddProduct)}" />
+
+    <hr>
+    <div class="content">
+        <h1 class="storeName">Добавить новый товар:</h1>
+        <br>
+        <div class="textOnCenter">
+
+            <form th:action="@{/#/products}" name="addProductForm" novalidate ng-submit="createOrUpdateProduct()">
+                <input hidden type="text" ng-model="productFromForm.id">
+                Название:
+                <input id="npTitle" type="text" placeholder="Введите название" ng-model="productFromForm.title">
+                Описание:
+                <input id="npDescription" type="text" placeholder="Введите описание" ng-model="productFromForm.description">
+                Цена:
+                <input id="npPrice" type="number" placeholder="Введите цену" ng-model="productFromForm.price">
+                <button type="submit">Подтвердить</button>
+            </form>
+
+            <br>
+        </div>
+    </div>
+</div>
+
+<hr>
+<div th:replace="~{footer}"></div>
+</body>
+
+</html>

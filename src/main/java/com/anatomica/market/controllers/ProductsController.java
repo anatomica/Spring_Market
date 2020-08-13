@@ -33,7 +33,7 @@ public class ProductsController {
 
     @GetMapping("/add")
     public String showAddForm() {
-        return "add_product_form";
+        return "add_or_edit_product";
     }
 
     @PostMapping("/add")
@@ -53,4 +53,10 @@ public class ProductsController {
         productsService.saveOrUpdate(product);
         return "redirect:/products";
     }
+
+    @GetMapping("/add_or_edit_product")
+    public String addOrEditProduct() {
+        return "add_or_edit_product";
+    }
+
 }
