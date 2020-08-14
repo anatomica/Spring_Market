@@ -2,7 +2,6 @@ package com.anatomica.market.controllers;
 
 import com.anatomica.market.entities.Product;
 import com.anatomica.market.entities.dtos.ProductDto;
-import com.anatomica.market.exceptions.NotFoundException;
 import com.anatomica.market.exceptions.ProductNotFoundException;
 import com.anatomica.market.services.ProductsService;
 import com.anatomica.market.utils.ProductFilter;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,7 +49,7 @@ public class RestProductsController {
     @ApiOperation("Returns one product by id")
     public ResponseEntity<?> getOneProduct(@PathVariable @ApiParam("Id of the product to be requested. Cannot be empty") Long id) {
         if (!productsService.existsById(id)) {
-            throw new NotFoundException("Product not found, id: " + id);
+            throw new ProductNotFoundException("Product not found, id: " + id);
         }
         return new ResponseEntity<>(productsService.findById(id), HttpStatus.OK);
     }
