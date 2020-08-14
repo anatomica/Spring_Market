@@ -5,8 +5,9 @@ angular.module('addOrEditProduct', [])
 
         if ($routeParams.id != null) {
             $http.get(advertsPath + '/' + $routeParams.id).then(function (response) {
-                $scope.productFromForm = response.data;
+                console.log(response.data);
                 console.log($scope.productFromForm);
+                $scope.productFromForm = response.data;
             });
         }
 
