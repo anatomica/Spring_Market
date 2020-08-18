@@ -13,7 +13,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/products")
 public class ProductsController {
-    public static Integer pageNumber;
     public ProductsService productsService;
 
     @Autowired
@@ -23,7 +22,7 @@ public class ProductsController {
 
     @GetMapping
     public String showAll(Model model, @RequestParam Map<String, String> requestParams) {
-        pageNumber = Integer.parseInt(requestParams.getOrDefault("p", "1"));
+        Integer pageNumber = Integer.parseInt(requestParams.getOrDefault("p", "1"));
         ProductFilter productFilter = new ProductFilter(requestParams);
         Page<Product> products = productsService.findAll(productFilter.getSpec(), pageNumber);
         model.addAttribute("products", products);

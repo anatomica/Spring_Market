@@ -40,18 +40,18 @@
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{'/#/products/?p='+ ${products.previousOrFirstPageable().getPageNumber() + 1} + ${filterDef}}"
+                           th:href="@{'/#/products?p='+ ${products.previousOrFirstPageable().getPageNumber() + 1} + ${filterDef}}"
                            th:if="${!products.first}">Назад</a>
                     </li>
 
                     <li class="page-item" th:classappend="${products.getNumber() + 1 == i ? 'active' : ''}"
                         th:each="i : ${#numbers.sequence(1, products.getTotalPages())}">
-                        <a class="page-link" th:text="${i}" th:href="@{'/#/products/?p=' + ${i} + ${filterDef}}"></a>
+                        <a class="page-link" th:text="${i}" th:href="@{'/#/products?p=' + ${i} + ${filterDef}}"></a>
                     </li>
 
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{'/#/products/?p='+ ${products.nextOrLastPageable().getPageNumber() + 1} + ${filterDef}}"
+                           th:href="@{'/#/products?p='+ ${products.nextOrLastPageable().getPageNumber() + 1} + ${filterDef}}"
                            th:if="${!products.last}">Вперед</a>
                     </li>
                 </ul>
