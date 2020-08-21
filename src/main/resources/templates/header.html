@@ -40,19 +40,19 @@
                     </form>
                 </li>
 
-                <li class="nav-item" sec:authorize="isAuthenticated()">
+                <li ng-controller="LoginController" class="nav-item" sec:authorize="isAuthenticated()">
 <!--                    <form th:action="@{/#/logout}" method="POST">-->
-                    <form th:action="@{/#!/Login}" method="GET">
-                        <button id="navLogout" class="btn btn-outline-secondary" type="submit" th:text="#{nav.logout}"></button>
+                    <form th:action="@{/#!/logout}" method="GET">
+                        <button id="navLogout" class="btn btn-outline-secondary" type="submit" th:text="#{nav.logout}" ng-click="tryToLogout()"></button>
                     </form>
                 </li>
 
                 <li ng-controller="LoginController" sec:authorize="isAnonymous()" class="nav-item" style="margin: 0 10px 0 10px">
-                    <form name="form" ng-submit="login()" role="form">
+                    <form name="form" ng-submit="tryToAuth()" role="form">
                         <div class="input-group-prepend">
-                            <input type="text" name="username" id="username" class="form-control" ng-model="username" required
+                            <input type="text" name="username" id="username" class="form-control" ng-model="user.username" required
                                    aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
-                            <input type="password" name="password" id="password" class="form-control" ng-model="password" required
+                            <input type="password" name="password" id="password" class="form-control" ng-model="user.password" required
                                    aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
                             <button class="btn btn-outline-warning btn-sm" style="margin-left: 10px;" type="submit" th:text="#{nav.login.submit}" ng-disabled="form.$invalid || dataLoading"></button>
                         </div>
