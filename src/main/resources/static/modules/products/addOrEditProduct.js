@@ -5,14 +5,15 @@ angular.module('addOrEditProduct', [])
 
         if ($routeParams.id != null) {
             $http.get(advertsPath + '/' + $routeParams.id)
-                .success(function(response){
-                    console.log("Success--> " + JSON.stringify(response));
-                    $scope.productFromForm = response;
-                }) // if http code == 200
-                .error(function(response){
-                    console.log("Error--> " + response);
-                    alert(response);
-                }); // if http code == 404
+                .then(successCallback, errorCallback);
+            function successCallback(response){
+                console.log("Success--> " + JSON.stringify(response));
+                $scope.productFromForm = response.data;
+            } // if http code == 200
+            function errorCallback(response){
+                console.log("Error--> " + response);
+                alert(response);
+            } // if http code == 404
         }
 
         $scope.createOrUpdateProduct = function() {
