@@ -1,0 +1,28 @@
+GET http://127.0.0.1:8080/ws/countries.wsdl
+
+###
+
+DELETE http://127.0.0.1:8080/base-jsf-app/api/products/4/id
+
+###
+
+PUT http://127.0.0.1:8080/base-jsf-app/api/products/new
+Content-Type: text/xml
+
+###
+
+POST http://127.0.0.1:8189/market/ws
+Content-Type: text/xml
+
+<soapenv:Envelope
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:c="http://www.geekbrains.com/spring/ws/products">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <c:getProductRequest>
+            <c:id>1</c:id>
+        </c:getProductRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+###
