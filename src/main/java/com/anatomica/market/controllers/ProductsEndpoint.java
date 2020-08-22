@@ -1,7 +1,7 @@
 package com.anatomica.market.controllers;
 
-import com.anatomica.market.entities.dtos.GetProductRequest;
-import com.anatomica.market.entities.dtos.GetProductResponse;
+import com.anatomica.market.entities.ws.GetProductRequest;
+import com.anatomica.market.entities.ws.GetProductResponse;
 import com.anatomica.market.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;

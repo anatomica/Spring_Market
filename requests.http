@@ -1,12 +1,12 @@
-GET http://127.0.0.1:8080/ws/countries.wsdl
+GET http://127.0.0.1:8189/market/ws/products.wsdl
 
 ###
 
-DELETE http://127.0.0.1:8080/base-jsf-app/api/products/4/id
+DELETE http://127.0.0.1:8189/base-jsf-app/api/products/4/id
 
 ###
 
-PUT http://127.0.0.1:8080/base-jsf-app/api/products/new
+PUT http://127.0.0.1:8189/base-jsf-app/api/products/new
 Content-Type: text/xml
 
 ###

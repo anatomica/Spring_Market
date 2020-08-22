@@ -1,4 +1,4 @@
-package com.anatomica.market.entities.dtos;
+package com.anatomica.market.entities.ws;
 
 import com.anatomica.market.entities.Product;
 import javax.xml.bind.annotation.*;
