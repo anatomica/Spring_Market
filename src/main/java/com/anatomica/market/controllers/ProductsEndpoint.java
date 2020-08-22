@@ -2,6 +2,7 @@ package com.anatomica.market.controllers;
 
 import com.anatomica.market.entities.ws.GetProductRequest;
 import com.anatomica.market.entities.ws.GetProductResponse;
+import com.anatomica.market.entities.ws.GetProductsResponse;
 import com.anatomica.market.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -28,4 +29,11 @@ public class ProductsEndpoint {
         return response;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getProductsRequest")
+    @ResponsePayload
+    public GetProductsResponse getProducts() {
+        GetProductsResponse response = new GetProductsResponse();
+        response.setProducts(productsRepository.findAll());
+        return response;
+    }
 }

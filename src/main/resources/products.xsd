@@ -9,6 +9,14 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="getProductsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="any" type="xs:all"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="getProductResponse">
         <xs:complexType>
             <xs:sequence>
