@@ -23,14 +23,14 @@ angular.module('addOrEditProduct', [])
                 $http.post(contextPath + '/api/v1/products', $scope.productFromForm)
                     .then(function (response) {
                     console.log(response);
-                    window.location.href = contextPath + '/#/products';
+                    window.location.href = '/products';
                     window.location.reload(true);
                 });
             } else {
                 $http.put(contextPath + '/api/v1/products', $scope.productFromForm)
                     .then(function (response) {
                     console.log(response);
-                    window.location.href = contextPath + '/#/products';
+                    window.location.href = '/products';
                     window.location.reload(true);
                 });
             }
