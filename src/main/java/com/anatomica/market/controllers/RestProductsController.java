@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,13 @@ public class RestProductsController {
     @GetMapping(produces = "application/json")
     @ApiOperation("Returns list of all products")
     public List<Product> getAllProducts() {
-        return productsService.findAll();
+        // return productsService.findAll();
+        Map<String, String> defaultParams = new HashMap<>();
+        defaultParams.put("p", "1");
+        Integer pageNumber = Integer.parseInt(defaultParams.get("p"));
+        ProductFilter productFilter = new ProductFilter(defaultParams);
+        Page<Product> products = productsService.findAll(productFilter.getSpec(), pageNumber);
+        return products.getContent();
     }
 
     @GetMapping(params = {"p"}, produces = "application/json")
