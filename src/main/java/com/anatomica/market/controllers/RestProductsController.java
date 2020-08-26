@@ -89,9 +89,4 @@ public class RestProductsController {
         return new ResponseEntity<>(productsService.saveOrUpdate(product), HttpStatus.OK);
     }
 
-    @ExceptionHandler
-    public ResponseEntity<?> handleException(ProductNotFoundException exc) {
-        return new ResponseEntity<>(exc.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
 }

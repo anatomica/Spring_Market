@@ -11,8 +11,8 @@ angular.module('addOrEditProduct', [])
                 $scope.productFromForm = response.data;
             } // if http code == 200
             function errorCallback(response){
-                console.log("Error--> " + response);
-                alert(response);
+                console.log("Error--> " + JSON.stringify(response));
+                alert(JSON.stringify(response.data));
             } // if http code == 404
         }
 
