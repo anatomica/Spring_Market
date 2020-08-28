@@ -13,7 +13,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/products")
 public class ProductsController {
-    public static Integer pageNumber;
     public ProductsService productsService;
 
     @Autowired
@@ -23,7 +22,7 @@ public class ProductsController {
 
     @GetMapping
     public String showAll(Model model, @RequestParam Map<String, String> requestParams) {
-        pageNumber = Integer.parseInt(requestParams.getOrDefault("p", "1"));
+        Integer pageNumber = Integer.parseInt(requestParams.getOrDefault("p", "1"));
         ProductFilter productFilter = new ProductFilter(requestParams);
         Page<Product> products = productsService.findAll(productFilter.getSpec(), pageNumber);
         model.addAttribute("products", products);
@@ -33,7 +32,7 @@ public class ProductsController {
 
     @GetMapping("/add")
     public String showAddForm() {
-        return "add_product_form";
+        return "add_or_edit_product";
     }
 
     @PostMapping("/add")
@@ -53,4 +52,10 @@ public class ProductsController {
         productsService.saveOrUpdate(product);
         return "redirect:/products";
     }
+
+    @GetMapping("/add_or_edit_product")
+    public String addOrEditProduct() {
+        return "add_or_edit_product";
+    }
+
 }

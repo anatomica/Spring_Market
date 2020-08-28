@@ -1,5 +1,6 @@
 package com.anatomica.market.services;
 
+import com.anatomica.market.beans.AppLoggingAspect;
 import com.anatomica.market.entities.Category;
 import com.anatomica.market.entities.Product;
 import com.anatomica.market.entities.dtos.ProductDto;
@@ -23,10 +24,12 @@ public class ProductsService {
     }
 
     public Product saveOrUpdate(Product product) {
+        AppLoggingAspect.logger.info("Обновлен или создан продукт");
         return productsRepository.save(product);
     }
 
     public Product findById(Long id) {
+        AppLoggingAspect.logger.info("Поиск одного товара");
         return productsRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Can't found product with id = " + id));
     }
 
@@ -35,6 +38,7 @@ public class ProductsService {
     }
 
     public Page<Product> findAll(Specification<Product> spec, Integer page) {
+        AppLoggingAspect.logger.info("Запрос на список всех товаров");
         if (page < 1L) {
             page = 1;
         }
@@ -42,18 +46,22 @@ public class ProductsService {
     }
 
     public void deleteAll() {
+        AppLoggingAspect.logger.info("Удалено ВСЕ");
         productsRepository.deleteAll();
     }
 
     public void deleteById(Long id) {
+        AppLoggingAspect.logger.info("Удален один товар");
         productsRepository.deleteById(id);
     }
 
     public boolean existsById(Long id) {
+        AppLoggingAspect.logger.info("Запрос на наличие товара в БД");
         return productsRepository.existsById(id);
     }
 
     public List<ProductDto> getDtoData() {
+        AppLoggingAspect.logger.info("Запрос ДТО");
         return productsRepository.findAllBy();
     }
 }

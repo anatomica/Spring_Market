@@ -36,13 +36,18 @@ public class RestProductsController {
         return productsService.getDtoData();
     }
 
-
     @GetMapping(produces = "application/json")
     @ApiOperation("Returns list of all products")
-    public List<Product> getAllProducts(@RequestParam Map<String, String> requestParams) {
-        // Integer pageNumber = Integer.parseInt(requestParams.getOrDefault("p", "1"));
+    public List<Product> getAllProducts() {
+        return productsService.findAll();
+    }
+
+    @GetMapping(params = {"p"}, produces = "application/json")
+    @ApiOperation("Returns page of all products")
+    public List<Product> getPageProducts(@RequestParam Map<String, String> requestParams){
+        Integer pageNumber = Integer.parseInt(requestParams.getOrDefault("p", "1"));
         ProductFilter productFilter = new ProductFilter(requestParams);
-        Page<Product> products = productsService.findAll(productFilter.getSpec(), ProductsController.pageNumber);
+        Page<Product> products = productsService.findAll(productFilter.getSpec(), pageNumber);
         return products.getContent();
     }
 

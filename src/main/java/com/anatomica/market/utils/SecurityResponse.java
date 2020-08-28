@@ -1,4 +1,4 @@
-package com.anatomica.market.exceptions;
+package com.anatomica.market.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductNotFoundException extends RuntimeException {
-    private String message;
+public class SecurityResponse {
+    private String error;
 }
