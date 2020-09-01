@@ -4,16 +4,19 @@
         $scope.tryToAuth = function () {
             $scope.dataLoading = true;
             $http.post(contextPath + '/auth', $scope.user)
-                .then(function (response) {
-                    if (response.data.token) {
-                        $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                        $localStorage.currentUser = { username: $scope.user.username, token: response.data.token };
-                        $location.path('/');
-                    } else {
-                        $scope.error = response.message;
-                        $scope.dataLoading = false;
-                    }
-                });
+                .then(successCallback, errorCallback);
+            function successCallback(response){
+                if (response.data.token) {
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+                    $localStorage.currentUser = { username: $scope.user.username, token: response.data.token };
+                    $location.path('/');
+                }
+            }
+            function errorCallback(response) {
+                $scope.error = response.message;
+                $scope.dataLoading = false;
+                alert(JSON.stringify(response.data.message));
+            }
         };
 
         $scope.tryToLogout = function () {
