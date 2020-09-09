@@ -2,12 +2,14 @@
 angular.module('Authentication', []);
 angular.module('addOrEditProduct', []);
 angular.module('Products', []);
+angular.module('Cart', []);
 angular.module('Home', []);
 
 angular.module('BasicHttpAuthExample', [
     'Authentication',
     'addOrEditProduct',
     'Products',
+    'Cart',
     'Home',
     'ngRoute',
     'ngCookies',
@@ -43,7 +45,7 @@ angular.module('BasicHttpAuthExample', [
         })
 
         .when('/cart', {
-            controller: 'HomeController',
+            controller: 'CartController',
             templateUrl: 'cart'
         })
 

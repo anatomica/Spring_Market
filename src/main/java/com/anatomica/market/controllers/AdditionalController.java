@@ -26,6 +26,11 @@ public class AdditionalController {
         return "logout";
     }
 
+    @GetMapping("/cart")
+    public String cart() {
+        return "cart";
+    }
+
     @GetMapping("/home")
     public String home() {
         return "home";

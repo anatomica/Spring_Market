@@ -31,7 +31,7 @@
                     <td>{{p.price}}</td>
                     <td>
                         <a th:href="@{#!/products/add_or_edit_product?id={{p.id}}}" th:text="Редактировать" class="btn btn-success textInLongView"></a>
-                        <a th:href="@{#!/cart/add/{{p.id}}}" class="btn btn-primary" >Добавить в корзину</a>
+                        <button class="btn btn-primary to-cart-btn" ng-click="addToCartFunction(p)">Добавить в корзину</button>
                     </td>
                 </tr>
                 </tbody>

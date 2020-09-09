@@ -1,6 +1,6 @@
 var contextPath = 'http://localhost:8189/market'
 angular.module('Products', [])
-    .controller('ProductsController', function($scope, $http, $routeParams) {
+    .controller('ProductsController', function($scope, $http, $location, $routeParams) {
         const advertsPath = contextPath + '/api/v1/products';
 
         if ($routeParams.p != null) {
@@ -32,5 +32,15 @@ angular.module('Products', [])
                     $scope.AllProducts = response.data;
                 });
         };
+
+        $scope.addToCartFunction = function(product) {
+            $http({
+                url: contextPath + '/api/v1/cart/add/' + product.id,
+                method: "GET"
+            }).then(function (response) {
+                $location.path('/cart');
+                console.log('added');
+            });
+        }
 
     });

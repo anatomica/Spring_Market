@@ -5,6 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Главная</title>
     <div th:replace="~{head}"></div>
+    <script type="text/javascript"></script>
+    <script th:src="@{/scripts/app.js}"></script>
+    <script th:src="@{/modules/authentication/services.js}"></script>
+    <script th:src="@{/modules/authentication/controllers.js}"></script>
+    <script th:src="@{/modules/cart/CartController.js}"></script>
 </head>
 
 <body>
@@ -16,26 +21,26 @@
         <h2>Корзина</h2>
 
         <span th:unless="${@cart.items.size() > 0}">Ваша корзина пуста</span>
-        <table class="table table-striped" th:if="${@cart.items.size() > 0}">
-            <thead>
+
+        <table class="table table-hover" th:if="${@cart.items.size() > 0}" cellpadding="0" cellspacing="0">
             <tr>
+                <td>ID</td>
                 <td>Название</td>
                 <td>Количество</td>
                 <td>Цена</td>
                 <td>Операции</td>
             </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="i : ${@cart.getItems()}">
-                <td th:text="${i.product.title}"></td>
+            <tbody ng-repeat="productCart in CartList">
+            <tr>
+                <td>{{productCart.id}}</td>
+                <td>{{productCart.productTitle}}</td>
                 <td>
-                    <a class="btn btn-primary" th:href="@{'/cart/decrement/' + ${i.product.id}}">-</a>
-                    <span th:text="'  ' + ${i.quantity} + '  '"/>
-                    <a class="btn btn-primary" th:href="@{'/cart/add/' + ${i.product.id}}">+</a>
+                    <a class="btn btn-primary" ng-click="decrementProduct(productCart)">-</a>
+                    {{productCart.quantity}}
+                    <a class="btn btn-primary" ng-click="incrementProduct(productCart)">+</a>
                 </td>
-                <td th:text="${i.price}"></td>
-                <td><a class="btn btn-danger" th:href="@{'/cart/remove/' + ${i.product.id}}">Удалить</a></td>
+                <td>{{productCart.price}}</td>
+                <td><a class="btn btn-danger" ng-click="removeProduct(productCart)">Удалить</a></td>
             </tr>
             </tbody>
         </table>

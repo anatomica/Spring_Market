@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductsService {
@@ -28,9 +29,9 @@ public class ProductsService {
         return productsRepository.save(product);
     }
 
-    public Product findById(Long id) {
+    public Optional<Product> findById(Long id) {
         AppLoggingAspect.logger.info("Поиск одного товара");
-        return productsRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Can't found product with id = " + id));
+        return productsRepository.findById(id);
     }
 
     public List<Product> findAll() {
