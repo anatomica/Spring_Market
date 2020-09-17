@@ -1,11 +1,10 @@
 package com.anatomica.market.entities;
 
-import com.anatomica.market.beans.Cart;
+import com.anatomica.market.services.CartService;
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +21,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    // @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<OrderItem> items;
 
     @Column(name = "price")
@@ -34,16 +33,29 @@ public class Order {
     @Column(name = "address")
     private String address;
 
-    public Order(User user, Cart cart, String phone, String address) {
+    public Order(User user, CartService cartService, String phone, String address) {
         this.user = user;
         this.phone = phone;
         this.address = address;
-        this.items = new ArrayList<>();
-        for (OrderItem oi : cart.getItems()) {
-            oi.setOrder(this);
-            this.items.add(oi);
-        }
-        this.price = new BigDecimal(cart.getPrice().doubleValue());
-        // cart.clear();
+        this.items = cartService.getItems();
+//        this.items = new ArrayList<>();
+//        for (OrderItem oi : cart.getItems()) {
+//            oi.setOrder(this);
+//            this.items.add(oi);
+//        }
+        this.price = new BigDecimal(cartService.getPrice().doubleValue());
+        cartService.clear();
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", user=" + user +
+                ", items=" + items +
+                ", price=" + price +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

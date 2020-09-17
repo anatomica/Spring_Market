@@ -20,9 +20,9 @@
     <div class="content">
         <h2>Корзина</h2>
 
-        <span th:unless="${@cart.items.size() > 0}">Ваша корзина пуста</span>
+        <span th:unless="${@cartService.items.size() > 0}">Ваша корзина пуста</span>
 
-        <table class="table table-hover" th:if="${@cart.items.size() > 0}" cellpadding="0" cellspacing="0">
+        <table class="table table-hover" th:if="${@cartService.items.size() > 0}" cellpadding="0" cellspacing="0">
             <tr>
                 <td>ID</td>
                 <td>Название</td>
@@ -44,7 +44,7 @@
             </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary" ng-click="createOrder()" th:if="${@cart.items.size() > 0}">Оформить заказ</button>
+        <button class="btn btn-primary" ng-click="createOrder()" th:if="${@cartService.items.size() > 0}">Оформить заказ</button>
     </div>
 </div>
 

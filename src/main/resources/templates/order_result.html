@@ -24,19 +24,21 @@
                 <td>Количество</td>
                 <td>Цена</td>
             </tr>
-            <tbody ng-repeat="productCart in CartList">
+            <tbody ng-repeat="order in OrderList">
             <tr>
-                <td>{{productCart.productTitle}}</td>
-                <td>{{productCart.quantity}}</td>
-                <td>{{productCart.price}}</td>
+                <td>{{order.item.id}}</td>
+                <td>{{order.item.name}}</td>
+                <td>{{order.user.id}}</td>
             </tr>
             </tbody>
         </table>
 
         <div class="alert alert-info">
-            Адрес доставки: {{userinfo.address}}
+            <div>Адрес доставки:</div>
+            <div>{{OrderList.address}}</div>
             <br>
-            Номер телефона: {{userinfo.phone}}
+            <div>Номер телефона:</div>
+            <div>{{OrderList.phone}}</div>
         </div>
 
     </div>
