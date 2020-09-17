@@ -31,6 +31,16 @@ public class AdditionalController {
         return "cart";
     }
 
+    @GetMapping("/order_info")
+    public String createOrder() {
+        return "order_info";
+    }
+
+    @GetMapping("/order_result")
+    public String createOrderResult() {
+        return "order_result";
+    }
+
     @GetMapping("/home")
     public String home() {
         return "home";

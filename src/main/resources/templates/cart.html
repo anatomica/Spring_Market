@@ -44,7 +44,7 @@
             </tr>
             </tbody>
         </table>
-        <a class="btn btn-primary" th:href="@{'/orders/create'}" th:if="${@cart.items.size() > 0}">Оформить заказ</a>
+        <button class="btn btn-primary" ng-click="createOrder()" th:if="${@cart.items.size() > 0}">Оформить заказ</button>
     </div>
 </div>
 

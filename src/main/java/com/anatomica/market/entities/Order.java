@@ -44,6 +44,6 @@ public class Order {
             this.items.add(oi);
         }
         this.price = new BigDecimal(cart.getPrice().doubleValue());
-        cart.clear();
+        // cart.clear();
     }
 }
