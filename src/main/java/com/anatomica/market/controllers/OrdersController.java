@@ -6,12 +6,17 @@ import com.anatomica.market.entities.User;
 import com.anatomica.market.services.OrdersService;
 import com.anatomica.market.services.UsersService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/orders")
@@ -20,6 +25,13 @@ public class OrdersController {
     private UsersService usersService;
     private OrdersService ordersService;
     private CartService cartService;
+    private List<Object> myOrder;
+
+    @GetMapping()
+    public ResponseEntity<?> getOrder() {
+        cartService.clear();
+        return new ResponseEntity<>(myOrder, HttpStatus.OK);
+    }
 
     @GetMapping("/create")
     public String createOrder(Principal principal, Model model) {
@@ -32,8 +44,9 @@ public class OrdersController {
     public ResponseEntity<?> confirmOrder(Principal principal, @RequestParam String address, String phone) {
         User user = usersService.findByEmail(principal.getName()).get();
         Order order = new Order(user, cartService, phone, address);
-        order = ordersService.saveOrder(order);
-        return new ResponseEntity<>(order, HttpStatus.CREATED);
+        myOrder.clear();
+        myOrder = Collections.singletonList(order);
+        return new ResponseEntity<>(ordersService.saveOrder(order), HttpStatus.CREATED);
     }
 
 }

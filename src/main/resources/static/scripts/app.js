@@ -3,6 +3,7 @@ angular.module('Authentication', []);
 angular.module('addOrEditProduct', []);
 angular.module('Products', []);
 angular.module('Order', []);
+angular.module('getOrder', []);
 angular.module('Cart', []);
 angular.module('Home', []);
 
@@ -11,6 +12,7 @@ angular.module('BasicHttpAuthExample', [
     'addOrEditProduct',
     'Products',
     'Order',
+    'getOrder',
     'Cart',
     'Home',
     'ngRoute',
@@ -57,7 +59,7 @@ angular.module('BasicHttpAuthExample', [
         })
 
         .when('/order_result', {
-            controller: 'OrderController',
+            controller: 'CreatedOrder',
             templateUrl: 'order_result'
         })
 

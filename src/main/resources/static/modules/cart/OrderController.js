@@ -16,8 +16,7 @@ angular.module('Order', [])
                 url: contextPath + '/api/v1/orders/confirm',
                 method: "POST",
                 params: {address: $scope.userinfo.address, phone: $scope.userinfo.phone},
-            }).then(function (response) {
-                $scope.OrderList = response.data;
+            }).then(function () {
                 $location.path('/order_result');
             });
         }
