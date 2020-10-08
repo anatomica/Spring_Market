@@ -1,14 +1,14 @@
 server:
-  port: 8189
+  port: 8080
   servlet:
     context-path: /market
 
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=products
-    username: postgres
-    password: 190283
+    url: jdbc:postgresql://ec2-34-254-24-116.eu-west-1.compute.amazonaws.com:5432/d6r3bb51o7eo44?currentSchema=products
+    username: lexsgpcnlitqqf
+    password: 69d89227bfc124901ff6788542e9afe4e734d954d542c76f44b5d90ee2cc99a3
 
   jpa:
     show-sql: true
@@ -20,6 +20,13 @@ spring:
 
   thymeleaf:
     encoding: UTF-8
+    prefix: file:src/main/resources/templates/
+    cache: false
+  resources:
+    static-locations: file:src/main/resources/static/
+  jackson:
+    serialization:
+      indent_output: true
 
-#  flyway:
-#    baseline-on-migrate: true
+jwt:
+  secret: topsecretkey123rieubherotuh3498th398gh395g8h598gh4g8gidufghdifughi43gg4334t3h4gi34uhgi35uhgi35ughi45ugho98dhf98bhg
