@@ -1,4 +1,4 @@
-﻿var contextPath = 'http://marketcook.herokuapp.com/market'
+﻿var contextPath = 'https://marketcook.herokuapp.com/market'
 
 angular.module('Authentication')
     .controller('LoginController', function ($scope, $rootScope, $location, $http, $localStorage) {
