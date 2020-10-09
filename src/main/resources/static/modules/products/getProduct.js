@@ -1,4 +1,3 @@
-var contextPath = 'http://localhost:8189/market'
 angular.module('Products', [])
     .controller('ProductsController', function($scope, $http, $location, $routeParams) {
         const advertsPath = contextPath + '/api/v1/products';

@@ -1,5 +1,6 @@
-﻿angular.module('Authentication')
+﻿var contextPath = 'http://marketcook.herokuapp.com/market/'
 
+angular.module('Authentication')
     .controller('LoginController', function ($scope, $rootScope, $location, $http, $localStorage) {
         $scope.tryToAuth = function () {
             $scope.dataLoading = true;

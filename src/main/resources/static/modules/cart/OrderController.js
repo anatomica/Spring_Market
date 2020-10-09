@@ -1,4 +1,3 @@
-var contextPath = 'http://localhost:8189/market'
 angular.module('Order', [])
     .controller('OrderController', function ($scope, $http, $location) {
         fillTable = function () {
