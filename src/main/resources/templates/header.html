@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+    </div>
+    <div class="menu">
+        <ul class="textOnCenter">
+            <li class="menu_list"><a th:href="@{/}" class="menu_link">Главная</a> </li>
+            <li class="menu_list"><a th:href="@{/products}" class="menu_link">Каталог</a></li>
+            <li class="menu_list"><a th:href="@{/products/add}" class="menu_link">Добавить товар</a></li>
+        </ul>
+    </div>
+    <div class="cart">
+    </div>
+</div>
+</body>
+</html>
