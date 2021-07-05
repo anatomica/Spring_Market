@@ -2,14 +2,20 @@ package com.anatomica.market.services;
 
 import com.anatomica.market.entities.Cart;
 import com.anatomica.market.entities.Product;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.WebApplicationContext;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Component
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CartService implements Serializable {
 
     public Map<Cart, Integer> cartIntegerMap;
