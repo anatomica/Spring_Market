@@ -21,9 +21,14 @@ public class AdditionalController {
         return "login";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/logouts")
     public String logoutPage() {
-        return "index";
+        return "logout";
+    }
+
+    @GetMapping("/cart")
+    public String cart() {
+        return "cart";
     }
 
     @GetMapping("/home")

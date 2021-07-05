@@ -2,15 +2,18 @@
 angular.module('Authentication', []);
 angular.module('addOrEditProduct', []);
 angular.module('Products', []);
+angular.module('Cart', []);
 angular.module('Home', []);
 
 angular.module('BasicHttpAuthExample', [
     'Authentication',
     'addOrEditProduct',
     'Products',
+    'Cart',
     'Home',
     'ngRoute',
-    'ngCookies'
+    'ngCookies',
+    'ngStorage'
 ])
 
 .config(['$routeProvider', function ($routeProvider) {
@@ -28,7 +31,7 @@ angular.module('BasicHttpAuthExample', [
 
         .when('/logout', {
             controller: 'LoginController',
-            templateUrl: 'logout'
+            templateUrl: 'logouts'
         })
 
         .when('/products', {
@@ -42,7 +45,7 @@ angular.module('BasicHttpAuthExample', [
         })
 
         .when('/cart', {
-            controller: 'HomeController',
+            controller: 'CartController',
             templateUrl: 'cart'
         })
 
@@ -62,22 +65,27 @@ angular.module('BasicHttpAuthExample', [
         })
 
         .otherwise({
-            redirectTo: '/login' }
-        )
-    ;
+            redirectTo: 'home' }
+        );
 }])
 
-.run(['$rootScope', '$location', '$cookies', '$http',
-    function ($rootScope, $location, $cookies, $http) {
+.run(['$rootScope', '$location', '$cookies', '$http', '$localStorage',
+    function ($rootScope, $location, $cookies, $http, $localStorage) {
         // keep user logged in after page refresh
-        $rootScope.globals = $cookies.get('globals') || {};
-        if ($rootScope.globals.currentUser) {
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+        if ($localStorage.currentUser) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
         }
+        // $rootScope.globals = $cookies.get('globals') || {};
+        // if ($rootScope.globals.currentUser) {
+        //     $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
+        // }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in
-            if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
+            if ($location.path() === '/logout' && !$localStorage.currentUser) {
+                $location.path('/logout');
+            }
+            else if ($location.path() !== '/login' && !$localStorage.currentUser) {
                 $location.path('/login');
             }
         });

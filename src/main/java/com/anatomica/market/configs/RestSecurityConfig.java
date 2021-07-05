@@ -1,26 +1,24 @@
 package com.anatomica.market.configs;
 
-import com.anatomica.market.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.anatomica.market.beans.JwtRequestFilter;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
-@Order(100)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private UsersService usersService;
-
-    @Autowired
-    public void setUserService(UsersService usersService) {
-        this.usersService = usersService;
-    }
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@AllArgsConstructor
+@Profile("js")
+public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final JwtRequestFilter jwtRequestFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,17 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/authenticate")
-                .permitAll()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .logout()
-                .logoutSuccessUrl("/")
-                .permitAll()
-                .and()
-                .csrf()
-                .disable();
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
@@ -49,11 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Override
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(usersService);
-        auth.setPasswordEncoder(passwordEncoder());
-        return auth;
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

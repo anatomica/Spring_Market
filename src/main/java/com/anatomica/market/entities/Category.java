@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,9 +25,9 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    @JsonBackReference
-    List<Product> products;
+//    @OneToMany(mappedBy = "category")
+//    @JsonBackReference
+//    List<Product> products;
 
 //    @ManyToMany
 //    @JoinTable(name = "products_categories",
