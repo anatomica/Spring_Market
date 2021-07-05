@@ -1,6 +1,6 @@
 package com.anatomica.market;
 
-import com.anatomica.market.beans.Cart;
+import com.anatomica.market.services.CartService;
 import com.anatomica.market.entities.Product;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @ActiveProfiles("test")
 public class CartTest {
     @Autowired
-    private Cart cart;
+    private CartService cartService;
 
     @Test
     public void cartFillingTest() {
@@ -23,10 +23,10 @@ public class CartTest {
             product.setId(productId);
             product.setPrice(new BigDecimal(100 + productId * 10));
             product.setTitle("Product # " + productId);
-            cart.add(product);
+            cartService.add(product);
         }
-        Assertions.assertEquals(5, cart.getItems().size());
-        cart.clear();
-        Assertions.assertEquals(0, cart.getItems().size());
+        Assertions.assertEquals(5, cartService.getItems().size());
+        cartService.clear();
+        Assertions.assertEquals(0, cartService.getItems().size());
     }
 }

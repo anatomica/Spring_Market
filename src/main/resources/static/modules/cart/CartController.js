@@ -43,4 +43,8 @@ angular.module('Cart', [])
             });
         }
 
+        $scope.createOrder = function () {
+            $location.path('/order_info');
+        }
+
     });

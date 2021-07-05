@@ -15,6 +15,32 @@
     <div class="content">
         <h2>Ваш заказ успешно сформирован</h2>
         <a th:href="@{/}">Вернуться на главную страницу</a>
+
+        <br>
+        <label>Вы заказали:</label>
+        <table class="table table-striped" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>Номер заказа</td>
+                <td>ID пользователя</td>
+                <td>Цена</td>
+            </tr>
+            <tbody ng-repeat="order in OrderList">
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.user.id}}</td>
+                <td>{{order.price}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="alert alert-info">
+            <div>Адрес доставки:</div>
+            <div>{{OrderList[0].address}}</div>
+            <br>
+            <div>Номер телефона:</div>
+            <div>{{OrderList[0].phone}}</div>
+        </div>
+
     </div>
 </div>
 
